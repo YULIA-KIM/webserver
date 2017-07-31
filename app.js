@@ -10,6 +10,9 @@ var users = require('./routes/users');
 
 var app = express();
 
+//html 코드 보기 쉽게 만들어줌
+app.locals.pretty = true;
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -24,6 +27,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+
+app.get('/template', function(req, res){  //template이라는 경로를 통해 들어온 사용자에게 function이 실행되면서
+    res.render('temp');   //temp라는 템플릿 파일을 웹페이지로 rendering해서 전송한다.
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -42,5 +49,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;
