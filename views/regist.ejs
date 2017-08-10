@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content= "text/html; charset=UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <title>웹페이지 추가</title>
+</head>
+
+<body>
+    <article class="container">
+        <div class="page-header">
+            <h1>웹페이지 추가</h1>
+        </div>
+
+        <form class="form-horizontal" action="" method="post">
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="inputName">이름</label>
+                <div class="col-sm-6">
+                    <input class="form-control" name="Name" id="inputName" type="text" placeholder="웹페이지 이름">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="inputAddress">주소</label>
+                <div class="col-sm-6">
+                    <input class="form-control" name="Address" id="inputAddress" type="text" placeholder="웹페이지 주소">
+                </div>
+            </div>
+
+            <div class="form-group" >
+                <div class="col-sm-12 text-center">
+                    <a class="btn btn-primary" type="button" onclick="alert('등록되었습니다.')" href="/list"> 등록</a>
+                </div>
+            </div>
+        </form>
+    </article>
+</body>
+</html>
