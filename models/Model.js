@@ -8,7 +8,7 @@ const sequelize = new Sequelize(
 );
 
 const Url = sequelize.define('url', {
-        id: {
+        Id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
@@ -17,12 +17,15 @@ const Url = sequelize.define('url', {
         name: Sequelize.STRING,
         userId: Sequelize.STRING,
         feed: Sequelize.STRING,
-        state: Sequelize.INTEGER
+        state: {
+            type: Sequelize.INTEGER,
+            defaultValue: 0
+        }
     }
 );
 
 const User = sequelize.define('user', {
-        id: {
+        Id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true

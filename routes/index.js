@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
     host     :  'localhost',
     user     :  'root',
     password :  '1017',
-    port     :  3000,
+    port     :  3001,
     database : 'pingpong'
 });
 

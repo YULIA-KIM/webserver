@@ -8,6 +8,7 @@ var models = require('./models/Model');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var urls = require('./routes/urls');
 
 var app = express();
 
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/urls', urls);
 
 app.get('/template', function(req, res){  //template이라는 경로를 통해 들어온 사용자에게 function이 실행되면서
     res.render('temp');   //temp라는 템플릿 파일을 웹페이지로 rendering해서 전송한다.
@@ -51,7 +53,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(3000, function(){
+app.listen(3001, function(){
     models.sequelize.sync({force: true})
         .then(function (){
             console.log('Database sunc');
