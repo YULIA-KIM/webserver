@@ -8,6 +8,7 @@ var models = require('./models/Model');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var SECRET = 'AdeFESddfTg765JhhgIu';
 
 var app = express();
 
@@ -16,7 +17,8 @@ app.locals.pretty = true;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -26,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+app.use('/', index);  //이걸 이렇게 안쓰면 routes/index.js파일에 있는 라우터들이 적용이 안된다. localhost:3000/ 로 불리면 index.js에 있는 라우터가 연결되는 거야 indew는 위에서 변수로 연결해뒀어
 app.use('/users', users);
 
 app.get('/template', function(req, res){  //template이라는 경로를 통해 들어온 사용자에게 function이 실행되면서
