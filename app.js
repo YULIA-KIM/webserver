@@ -54,10 +54,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(3001, function(){
+app.listen(3000, function(){
     models.sequelize.sync({force: true})
         .then(function (){
-            console.log('Database sunc');
+            console.log('Database sync');
         });
 });
 

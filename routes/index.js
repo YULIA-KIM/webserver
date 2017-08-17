@@ -10,20 +10,15 @@ var window = require("window");
 var crawl = "";
 var before = "";
 
-var model = require('../models/Model');
-var User = model.User;
 var passport = require('passport');
-var jwt = require('jsonwebtoken');
-var SECRET = 'AdeFESddfTg765JhhgIu';
-var EXPIRES = 60; // 1 hour
 
-var connection = mysql.createConnection({
-    host     :  'localhost',
-    user     :  'root',
-    password :  'root',
-    port     :  3000,
-    database : 'pingpong'
-});
+// var connection = mysql.createConnection({
+//     host     :  'localhost',
+//     user     :  'root',
+//     password :  '1017',
+//     port     :  3000,
+//     database : 'pingpong'
+// });
 
 //크롤링 해오기
 var crawling = function(){
