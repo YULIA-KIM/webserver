@@ -44,14 +44,12 @@ const Feed = sequelize.define('feed', {
     },
     urlId: Sequelize.INTEGER,
     title: Sequelize.STRING,
-    content: Sequelize.STRING,
+    content: {
+        type: Sequelize.TEXT
+    },
     image: Sequelize.STRING,
-    author: Sequelize.STRING
+    link: Sequelize.STRING
 });
-
-
-
-
 
 module.exports = {
     sequelize: sequelize,
