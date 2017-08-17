@@ -19,7 +19,6 @@ app.locals.pretty = true;
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -32,8 +31,24 @@ app.use('/', index);  //이걸 이렇게 안쓰면 routes/index.js파일에 있�
 app.use('/users', users);
 app.use('/urls', urls);
 
-app.get('/template', function(req, res){  //template이라는 경로를 통해 들어온 사용자에게 function이 실행되면서
-    res.render('temp');   //temp라는 템플릿 파일을 웹페이지로 rendering해서 전송한다.
+app.get('/main', function(req, res){
+    res.render('main');
+})
+
+app.get('/login', function(req, res){
+    res.render('login');
+})
+
+app.get('/signup', function(req, res){
+    res.render('signup');
+})
+
+app.get('/list', function(req, res){
+    res.render('list',{name:'구글', address:'www.google.com', rows:"2"});
+})
+
+app.get('/regist', function(req, res){
+    res.render('regist');
 })
 
 // catch 404 and forward to error handler
