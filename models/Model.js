@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize'); //nodejs와 db를 이어주면서 간편하게 쿼리문을 작성할수있도록 지원해주는 도구?
 const sequelize = new Sequelize(
-    'pingpong', 'root', '1017',
+    'pingpong', 'root', 'root',
     {
         'host': 'localhost', // 데이터베이스 호스트
         'dialect': 'mysql' // 사용할 데이터베이스 종류
@@ -44,14 +44,12 @@ const Feed = sequelize.define('feed', {
     },
     urlId: Sequelize.INTEGER,
     title: Sequelize.STRING,
-    content: Sequelize.STRING,
+    content: {
+        type: Sequelize.TEXT
+    },
     image: Sequelize.STRING,
-    author: Sequelize.STRING
+    link: Sequelize.STRING
 });
-
-
-
-
 
 module.exports = {
     sequelize: sequelize,

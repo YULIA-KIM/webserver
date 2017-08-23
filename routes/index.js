@@ -11,6 +11,7 @@ var crawl = "";
 var before = "";
 
 var passport = require('passport');
+const controller = require('./feed.cotroller');
 
 // var connection = mysql.createConnection({
 //     host     :  'localhost',
@@ -58,6 +59,8 @@ var alarm = function(update){
 }
 //알람 실행
 //alarm(crawling());
+
+//controller.parse('http://blog.rss.naver.com/ki__chin.xml');
 
 
 
