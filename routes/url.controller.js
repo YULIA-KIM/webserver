@@ -1,14 +1,13 @@
 const model = require('../models/Model');
 
 exports.create = function(req, res){
-
     model.Url.create({
         address : req.body.address,
         name : req.body.name,
         userId : req.body.userId,
         feed : req.body.feed })
         .then(function() {
-            res.status(201).send()
+            res.status(201).send();
         })
 };
 

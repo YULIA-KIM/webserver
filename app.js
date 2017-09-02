@@ -10,6 +10,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var SECRET = 'AdeFESddfTg765JhhgIu';
 var urls = require('./routes/urls');
+var feeds = require('./routes/feed');
 var app = express();
 
 //html 코드 보기 쉽게 만들어줌
@@ -30,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);  //이걸 이렇게 안쓰면 routes/index.js파일에 있는 라우터들이 적용이 안된다. localhost:3000/ 로 불리면 index.js에 있는 라우터가 연결되는 거야 indew는 위에서 변수로 연결해뒀어
 app.use('/users', users);
 app.use('/urls', urls);
+app.use('/feeds', feeds);
 
 app.get('/main', function(req, res){
     res.render('main');
@@ -72,7 +74,7 @@ app.use(function(err, req, res, next) {
 app.listen(3000, function(){
     models.sequelize.sync({force: true})
         .then(function (){
-            console.log('Database sunc');
+            console.log('Database sync');
         });
 });
 
