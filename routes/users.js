@@ -7,11 +7,10 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-//로그인 창
-router.get('/login/:success', function(req, res, next) {
-  var test = {"success":req.params.success};
 
-  res.render('login',test);
+//로그인 창
+router.get('/login', function(req, res, next) {
+  res.render('login');
 });
 
 //로그인 완료창
@@ -26,8 +25,7 @@ router.post('/loginOk', function(req, res, next) {
          const token = jwt.sign({userID: userId, password: password}, SECRET, { expiresIn: EXPIRES })
          console.log(token);
 
-         res.json({ token: token });//이게 로컬에 저장한거야?? 일단 화면에 토큰정보가 보이긴 한다.
-         //res.render('loginOk',{ token: token });
+         res.render('main',{ token: token, login_success: 1 });
      }else{
          console.log("아이디 존재안해");
        };
