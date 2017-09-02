@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 
   <script language="javascript">
     function popup_signup() {
@@ -124,24 +124,17 @@
       </table>
       <hr style="size:9px" />
       <div id="name_list">
-        <ul>
-          <%=url_name%>
-        </ul>
+
       </div>
     </div>
     <div id="content">
-      <form id="1">
-        <%=title%><%=content%>
-      </form>
+
       <input type="button" id="more_feed" value="더보기"/>
     </div>
   </div>
   <script>
-        if(login_success=1) {
-            $('#login_check').value('로그아웃');
-        }
-        $(document).ready( function() {
-            $('#close').click( function() {
+        $(document).ready( function(res) {
+            $('#close').click(function () {
                 $('#popup').hide();
             })
         })
@@ -191,7 +184,7 @@
         });
 
         var load_rss=function(rss){
-            console.log(rss);
+            //console.log(rss);
             $(rss).find('item').each(function (index) {
                 var title=$(this).find('title').text();
                 var content=$(this).find('content').text;
@@ -199,7 +192,7 @@
                 var url=$(this).find('urlId').text();
                 for(var i = 0; i < rss.length; i++) {
                     $('#content').after('<form id="' + i + '">' + '<p>' + title + '<p>' + '<p>' + image + content + '<p>' + '</from>');
-                    console.log(this);
+                    //console.log(this);
                     $("#"+i).click(function () {
                         $(location).attr('href', url);
                     })

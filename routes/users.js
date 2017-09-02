@@ -1,5 +1,8 @@
 var model = require('../models/Model');
 var express = require('express');
+var jwt = require('jsonwebtoken');
+var SECRET = 'AdeFESddfTg765JhhgIu';
+var EXPIRES = 20;
 var router = express.Router();
 
 /* GET users listing. */
@@ -15,7 +18,8 @@ router.get('/login', function(req, res, next) {
 
 //로그인 완료창
 router.post('/loginOk', function(req, res, next) {
-  const { userId, password } = req.body;
+    var password = req.body.password.toString();
+    var userId = req.body.userId.toString();
 
   const bverifyUser = (userId, password) => {
      model.User.findOne({
@@ -25,7 +29,7 @@ router.post('/loginOk', function(req, res, next) {
          const token = jwt.sign({userID: userId, password: password}, SECRET, { expiresIn: EXPIRES })
          console.log(token);
 
-         res.render('main',{ token: token, login_success: 1 });
+         res.render('main',{ token: token });
      }else{
          console.log("아이디 존재안해");
        };
@@ -80,8 +84,8 @@ router.get('/signUp/:success', function(req, res, next) {
 //회원가입 완료창
 router.post('/signUpOk',function(req, res, next) {
   //res.send('this router is working');
-
-  const { userId, password } = req.body;
+ var password = req.body.password.toString();
+ var userId = req.body.userId.toString();
 
      model.User.findOne({
        where: {userId: userId}

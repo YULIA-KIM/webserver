@@ -43,30 +43,29 @@
       <h2 style="text-align:center; font-weight:bold"><img style="margin-left:0px" src="https://image.flaticon.com/icons/svg/540/540209.svg" width="40px" height="40px">  SCRAMBLE </h2>
     </div>
     <article id="signup">
-      <form action="" method="post">
-        <input type="text" class="form-control" style="font-size:18px; width:350px; height:60px" id="id"  placeholder="아이디" /></br>
-        <input type="password" class="form-control" style="font-size:18px; width:350px; height:60px" id="password" placeholder="비밀번호" /></br>
-        <input type="password" class="form-control" style="font-size:18px; width:350px; height:60px" id="passwordcheck" placeholder="비밀번호확인" /></br></br>
-        <input type="button"  style="font-size:18px; width:350px; height:60px" class="btn btn-warning" id="signup_submit" value="회원가입" onclick="signup()" />
-        <!-- <input type="button"  style="font-size:18px; width:350px; height:60px" class="btn btn-warning" id="signup_submit" value="회원가입" onclick="alert('회원가입되었습니다.')" /> -->
-      </form>
+      <div>
+        <input type="text" class="form-control" style="font-size:18px; width:350px; height:60px" name="userId" id="userId"  placeholder="아이디" /></br>
+        <input type="password" class="form-control" style="font-size:18px; width:350px; height:60px" name="password" id="password" placeholder="비밀번호" /></br>
+        <input type="password" class="form-control" style="font-size:18px; width:350px; height:60px" placeholder="비밀번호확인" /></br></br>
+        <input type="submit"  style="font-size:18px; width:350px; height:60px" class="btn btn-warning" id="signup_submit" value="회원가입" onclick="alert('회원가입되었습니다.')" />
+      </div>
     </article>
 
     <script>
         $('#signup_submit').click( function() {
             $.ajax({
-                url:'',
+                url:'/users/signUpOk',
                 dataType:'json',
                 type:'post',
-                data:{},
-                beforeSend: function (request) {
-                    request.setRequestHeader('x-access-token', '');
-                },
-                //success:function(signup_success) {
-                //    if (signup_success['signup_success'] == true) {
-                //       alert('회원가입성공');
-                //  }
-                //  }
+                data:{'userId':$('#userId').val(),'password':$('#password').val()},
+//                beforeSend: function (request) {
+//                    request.setRequestHeader('x-access-token', '');
+//                },
+                success:function(res) {
+//                    if (signup_success['signup_success'] == true) {
+//                       alert('회원가입성공');
+                    console.log(res);
+                  }
             })
         })
     </script>

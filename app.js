@@ -33,11 +33,6 @@ app.use('/users', users);
 app.use('/urls', urls);
 app.use('/feeds', feeds);
 
-
-// app.get('/login', function(req, res) {
-//     res.render('login');
-// });
-
 app.get('/signup', function(req, res) {
     res.render('signup');
 });
