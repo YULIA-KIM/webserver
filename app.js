@@ -33,23 +33,23 @@ app.use('/urls', urls);
 
 app.get('/main', function(req, res){
     res.render('main');
-})
+});
 
-app.get('/login', function(req, res){
-    res.render('login');
-})
+app.get('/login', function(req, res) {
+    res.render('login2');
+});
 
-app.get('/signup', function(req, res){
-    res.render('signup');
-})
+app.get('/signup', function(req, res) {
+    res.render('signup2');
+});
 
-app.get('/list', function(req, res){
-    res.render('list',{name:'구글', address:'www.google.com', rows:"2"});
-})
+app.get('/preview', function(req, res) {
+    res.render('preview');
+});
 
-app.get('/regist', function(req, res){
-    res.render('regist');
-})
+app.get('/layout', function(req, res) {
+    res.render('layout', {url_name:'네이버', title:'title입니다.', content:'content입니다.'});
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -69,7 +69,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(3001, function(){
+app.listen(3000, function(){
     models.sequelize.sync({force: true})
         .then(function (){
             console.log('Database sunc');
