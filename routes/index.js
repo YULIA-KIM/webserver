@@ -13,55 +13,15 @@ var before = "";
 var passport = require('passport');
 const controller = require('./feed.cotroller');
 
-// var connection = mysql.createConnection({
-//     host     :  'localhost',
-//     user     :  'root',
-//     password :  '1017',
-//     port     :  3000,
-//     database : 'pingpong'
-// });
+//controller.parse(); //이렇게 실행하는데 먼저 저장이 되어있어야한다..
+//setInterval( controller.parse, 1 * 30000 ); //5초마다 돌린다
 
-//크롤링 해오기
-var crawling = function(){
-    request(url, function(error, response, body){
-        if (error) throw error;
-
-        var $ = cheerio.load(body);
-        var result = false;
-
-        fs.readFile('test.txt', 'utf8', function(error, data){
-            before = data;
-
-            console.log(before);
-
-            var postElements = $('.container');
-            postElements.each(function() {
-                crawl =  $(this).html();
-            });
-
-            var crawlEncode = md5(crawl);
-            console.log(crawlEncode);
-
-            if(before !== crawlEncode){
-                this.result = true;
-            }
-            return(this.result);
-
-        });
-    });
-}
-// 알람 설정
-var alarm = function(update){
-    console.log(update);
-    if(update == true){
-        console.log("알람");
-    }
-}
-//알람 실행
-//alarm(crawling());
-
-//controller.parse('http://blog.rss.naver.com/ki__chin.xml');
-
+//테스트용
+// var aa = function(){
+//   console.log("안녕");
+// }
+// // aa();
+//  setInterval( aa, 5 * 1000 );
 
 
 module.exports = router;

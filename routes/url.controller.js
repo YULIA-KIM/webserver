@@ -1,4 +1,5 @@
 const model = require('../models/Model');
+const feedController = require('./feed.cotroller');
 
 exports.create = function(req, res){
 
@@ -8,7 +9,8 @@ exports.create = function(req, res){
         userId : req.body.userId,
         feed : req.body.feed })
         .then(function() {
-            res.status(201).send()
+            res.status(201).send();
+            //feedController.init();
         })
 };
 
