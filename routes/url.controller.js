@@ -1,8 +1,6 @@
 const model = require('../models/Model');
-const feedController = require('./feed.cotroller');
 
 exports.create = function(req, res){
-
     model.Url.create({
         address : req.body.address,
         name : req.body.name,
@@ -10,7 +8,6 @@ exports.create = function(req, res){
         feed : req.body.feed })
         .then(function() {
             res.status(201).send();
-            //feedController.init();
         })
 };
 
