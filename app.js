@@ -33,6 +33,7 @@ app.use('/users', users);
 app.use('/urls', urls);
 app.use('/feeds', feeds);
 
+
 app.get('/login', function(req, res) {
     res.render('login');
 });
@@ -40,6 +41,7 @@ app.get('/login', function(req, res) {
 app.get('/signup', function(req, res) {
     res.render('signup');
 });
+
 
 app.get('/main', function(req, res) {
     res.render('main', {url_name:'네이버', title:'title입니다.', content:'content입니다.'});

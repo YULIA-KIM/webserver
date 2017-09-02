@@ -1,69 +1,83 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta http-equiv="Content-Type" content= "text/html; charset=UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<html>
 
-    <script>
-        function check() {
-            if(inputcheck.Id.value == "") {
-                alert("아이디를 입력하세요.");
-                inputcheck.Id.focus();
-                return false;
-            }
-            else if(inputcheck.Password.value == "") {
-                alert("비밀번호를 입력하세요.");
-                inputcheck.Password.focus();
-                return false;
-            }
-            else return true;
-        }
-    </script>
-    <title>로그인</title>
+<head>
+  <meta charset="utf-8">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+  <title>로그인</title>
+
+  <style media="screen">
+    @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+    @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+    @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+    @import url('https://fonts.googleapis.com/css?family=Amatic+SC|Baloo+Tammudu|Delius+Unicase|Griffy|Lobster|Pacifico');
+    @import url(//fonts.googleapis.com/earlyaccess/jejuhallasan.css);
+
+    #header_login {
+      /*font-family: 'Baloo Tammudu', cursive;
+    font-family: 'Lobster', cursive;
+    font-family: 'Griffy', cursive;
+    /*font-family: 'Pacifico', cursive;*/
+
+      font-family: 'Amatic SC', cursive;
+      /*font-family: 'Delius Unicase', cursive;*/
+      height: 70px;
+      background: #fff;
+      /*z-index: 100;*/
+      padding-top: 20px;
+      font-size: 25px;
+      font-weight: bold;
+      letter-spacing: 10px ;
+    }
+
+    #login {
+      font-family: 'Noto Sans KR', sans-serif;
+      line-height: 1.3em;
+      position: absolute;
+      top: 47%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
 </head>
 
 <body>
-<article class="container">
-    <div class="page-header">
-        <h1>로그인</h1>
+  <section>
+    <div id="header_login" style="">
+      <h2 style="text-align:center; font-weight:bold"><img style="margin-left:0px" src="https://image.flaticon.com/icons/svg/540/540209.svg" width="40px" height="40px">  SCRAMBLE </h2>
     </div>
+    <article id="login">
+      <form action="" method="post">
+        <input type="text" class="form-control" style="font-size:18px; width:350px; height:60px" id="id" placeholder="아이디" /></br>
+        <input type="password" class="form-control" style="font-size:18px; width:350px; height:60px" id="password" placeholder="비밀번호" /></br></br>
+        <input type="button"  style="font-size:18px; width:350px; height:60px" class="btn btn-warning" id="login_submit" value="로그인" onclick="alert('로그인되었습니다.')" />
+      </form>
+      <br><a href="#" style="text-align:center;display:block; font-size:16px; ;color:blue;text-decoration:underline;">아이디/비밀번호찾기</a>
+    </article>
 
-    <form name="inputcheck" onsubmit="return check()" class="form-horizontal" action="" method="post">
-        <div class="form-group">
-            <label class="col-sm-3 control-label" for="Id">아이디</label>
-            <div class="col-sm-6">
-                <input class="form-control" name="Id" id="Id" type="text" placeholder="아이디">
-            </div>
-        </div>
+    <script>
+      $('#login_submit').click(function() {
+        $.ajax({
+          url: '',
+          dataType: 'json',
+          type: 'post',
+          data: {},
+          beforeSend: function(request) {
+            request.setRequestHeader('x-access-token', '');
+          },
+          //success:function(login_success) {
+          //    if (login_success['login_success'] == true) {
+          //       alert('로그인성공');
+          //  }
+          //  }
+        })
+      })
+    </script>
+  </section>
 
-        <div class="form-group">
-            <label class="col-sm-3 control-label" for="Password">비밀번호</label>
-            <div class="col-sm-6">
-                <input class="form-control" name="Password" id="Password" type="password" min="8" placeholder="비밀번호">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-12 text-center">
-                <button class="btn btn-primary" type="submit">로그인</button>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-12 text-center">
-                <a id="addcolor"href="/signup"> 회원가입</a>
-                <a id="addcolor"href=""> 아이디/비밀번호찾기</a>
-            </div>
-        </div>
-    </form>
-</article>
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../javascripts/bootstrap.min.js"></script>
 </body>
+
 </html>
