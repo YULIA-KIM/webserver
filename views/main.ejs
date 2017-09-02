@@ -1,39 +1,57 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+
     <script language="javascript">
-        function popup_signup() { window.open("signup", "회원가입", "width=450, height=150, left=400, top=200"); }
-        function popup_login() { window.open("login", "로그인", "width=450, height=150, left=400, top=200"); }
+        function popup_signup() {
+            window.open("signup2", "회원가입",
+                'left=' + (screen.availWidth - 460) / 2 + ',top=' + (screen.availHeight - 550) / 2 + ', width=460px,height=550px');
+        }
+
+        function popup_login() {
+            window.open("login2", "로그인",
+                'left=' + (screen.availWidth - 460) / 2 + ',top=' + (screen.availHeight - 550) / 2 + ', width=460px,height=550px');
+        }
     </script>
+
     <style>
         @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
         @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
-        @import url('https://fonts.googleapis.com/css?family=Baloo+Tammudu|Lobster');
+        @import url('https://fonts.googleapis.com/css?family=Amatic+SC|Baloo+Tammudu|Delius+Unicase|Griffy|Lobster|Pacifico');
         #header {
-            font-family: 'Baloo Tammudu', cursive;
+            /*font-family: 'Baloo Tammudu', cursive;
+            font-family: 'Lobster', cursive;
+            font-family: 'Griffy', cursive;
+            font-family: 'Pacifico', cursive;
+            font-family: 'Amatic SC', cursive;
+            font-family: 'Delius Unicase', cursive;*/
             /*font-family: 'Jeju Gothic', sans-serif;*/
+            font-family: 'Amatic SC', cursive;
+            /*font-family: 'Baloo Tammudu', cursive;*/
             height: 50px;
             background: #fff;
             box-shadow: 0 0 5px rgba(57, 70, 78, .2);
             z-index: 100;
             padding-top: 5px;
-            font-size: 23px;
         }
 
         #header_btn {
             font-family: 'Noto Sans KR', sans-serif;
             vertical-align: middle;
             float: right;
+            padding-top:5px;
             padding-right: 1%;
         }
 
         #sidebar {
             padding: 0;
             margin: 0;
-            width: 17%;
+            width:350px; /*원래 350px*/
             position: absolute;
             top: 50px;
             left: 0;
@@ -47,7 +65,7 @@
         }
 
         #content {
-            padding-left: 18%;
+            padding-left: 360px;
             margin: 1%;
         }
 
@@ -66,87 +84,131 @@
             list-style-image: url('http://www.google.com/s2/favicons?domain_url=http://www.naver.com');
         }
     </style>
+
+    <title>SCRAMBLE</title>
     <script>
-        $( document ).ready( function() {
-            var offset = $( '.menu' ).offset();
-            $( window ).scroll( function() {
-                if ( $( document ).scrollTop() > offset.top ) {
-                    $( '.menu' ).addClass( 'fixed' );
-                }
-                else {
-                    $( '.menu' ).removeClass( 'fixed' );
+        $(document).ready(function() {
+            var offset = $('.menu').offset();
+            $(window).scroll(function() {
+                if ($(document).scrollTop() > offset.top) {
+                    $('.menu').addClass('fixed');
+                } else {
+                    $('.menu').removeClass('fixed');
                 }
             });
-        } );
+        });
     </script>
-    <title>Home</title>
 </head>
 
 <body>
-<header class="header">
-    <a type="button" onclick="popup_signup();">회원가입</a>
-    <a type="button" onclick="popup_login();">로그인</a>
-</header>
-<section>
-    <article class="">
-        <div class="menu">
-            <input type="text" id="name" name="url_name" placeholder="웹페이지 이름을 입력하세요."/>
-            <input type="text" id="address" name="url_address" placeholder="웹페이지 주소를 입력하세요."/>
-            <input type="button" id="address_regist" value="등록" onclick="alert('등록되었습니다.')"/>
-            <hr />
-            <div id="name_list"><%=url_name%></div>
+<div id="header">
+    <div id="header_logo"  style="font-weight:bold; letter-spacing: 10px ;  margin-top:-5px; font-size:35px; height:0px ">
+        <img style="margin-left:50px; margin-top:-5px" src="https://image.flaticon.com/icons/svg/540/540209.svg" width="40px" height="40px"> SCRAMBLE
+    </div>
+
+    <div id="header_btn">
+        <button id="login_check" class="btn btn-warning" style="width:90px;" onclick="popup_login();">로그인</button> &nbsp;&nbsp;
+        <button class="btn" style="width:90px;" onclick="popup_signup();">회원가입</button></br>
+    </div>
+</div>
+<div id="" style="-webkit-overflow-scrolling: touch;">
+    <div id="sidebar">
+        <table border="0" class="text-center">
+            <tr>
+                <td style="width:250px"><input type="text" size="8" id="name" class="form-control" placeholder="웹페이지 이름을 입력하세요." /> </td>
+                <td style="width:70px" rowspan="2" padding=5px> <input type="button" class="btn btn-success" style="height:90px" id="address_regist" value="등록" onclick="alert('등록되었습니다.')" /></td>
+            </tr>
+            <tr>
+                <td><input type="text" id="address" class="form-control" placeholder="웹페이지 주소를 입력하세요." /></td>
+            </tr>
+        </table>
+        <hr style="size:9px" />
+        <div id="name_list">
+            <ul>
+                <%=url_name%>
+            </ul>
         </div>
-    </article>
-    <article>
-        <div class="content" id="content">
-
-        </div>
-    </article>
-
-    <script>
-        //$('#login_check').html('');
-        $('#login_check').text('로그아웃');
-            $(document).ready( function() {
-            $('#close').click( function() {
-                $('#popup').hide();
-            })
+    </div>
+    <div id="content">
+        <form id="1">
+            <%=title%><%=content%>
+        </form>
+        <input type="button" id="more_feed" value="더보기"/>
+    </div>
+</div>
+<script>
+    if(login_success=1) {
+        $('#login_check').value('로그아웃');
+    }
+    $(document).ready( function() {
+        $('#close').click( function() {
+            $('#popup').hide();
         })
+    })
 
-        $('#address_regist').click(function() {
-            $.ajax({
-                url:'',         //"/main/"+id||pw
-                dataType:'json',
-                type:'POST',
-                data:{'name':$('#name').val(),'address':$('#address').val()},
-                success:function(result){   //서버가 리턴해준 result가 인자로 온다
-                    if(result['result']==true){     //서버가 리턴해준 result값이 true라면(서버측에서 지정함. 예를 들어 로그인을 하고 난 다음 성공적이라고 11을 보내주면 true가 아니라 11이 됨)
-                        $('#name_list').html(result['url_name']);
-                    }
+    $('#address_regist').click(function() {
+        $.ajax({
+            url:'',         //"/main/"+id||pw
+            dataType:'json',
+            type:'POST',
+            data:{'name':$('#name').val(),'address':$('#address').val()},
+            success:function(result){   //서버가 리턴해준 result가 인자로 온다
+                if(result['result']==true){     //서버가 리턴해준 result값이 true라면(서버측에서 지정함. 예를 들어 로그인을 하고 난 다음 성공적이라고 11을 보내주면 true가 아니라 11이 됨)
+                    $('#name_list').append('<ul>'+url_name+'</ul>');
                 }
-            })
+            }
         })
+    })
 
-        $(function () {
-            $.ajax({
-                url:'',     //불러올 피드
-                dataType:'json',
-                type:'POST',
-                success:function(rss){
-                    $(rss).find('item').each(function () {
-                        var title=$(this).find('title').text();
-                        var content=$(this).find('content').text;
-                        var image=$(this).find('image').text();
-                        var url=$(this).find('urlId').text();
-                        $('#content').after('<form id="useGo_${status.index}"' +'<p>'+title+'<p>'+'<p>'+image+content+'<p>'+'</from>');
-                        $('#1').click( function() {
-                            $(location).attr('href', url);
-                        })
-                    })
-                }
-            })
+    $(function () {
+        $.ajax({
+            url:'',     //불러올 피드
+            dataType:'json',
+            type:'POST',
+            cache: false,
+            success:load_rss()
         })
-         //var showWords = function(data) {}
-    </script>
-</section>
+    })
+
+
+    $('#more_feed').click(function() {
+        $(this).text('Loading...');
+        var ele = $(this).parent('li');
+        $.ajax({
+            url: '',
+            dataType:'json',
+            type: 'POST',
+            data: {
+                page:$(this).data('page'),
+            },
+            success: function(response){
+                if(response){
+                    ele.hide();
+                    load_rss();
+                }
+            }
+        });
+    });
+
+    var load_rss=function(rss){
+        console.log(rss);
+        $(rss).find('item').each(function (index) {
+            var title=$(this).find('title').text();
+            var content=$(this).find('content').text;
+            var image=$(this).find('image').text();
+            var url=$(this).find('urlId').text();
+            for(var i = 0; i < rss.length; i++) {
+                $('#content').after('<form id="' + i + '">' + '<p>' + title + '<p>' + '<p>' + image + content + '<p>' + '</from>');
+                console.log(this);
+                $("#"+i).click(function () {
+                    $(location).attr('href', url);
+                })
+            }
+        })
+    }
+
+</script>
+
 </body>
+
 </html>

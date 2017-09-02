@@ -1,53 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
+<html lang="ko">
+<head>
+    <meta http-equiv="Content-Type" content= "text/html; charset=UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>로그인페이지</title>
-
     <script>
-
-        if(<%=success%>==1){
-          alert("아이디와 비밀번호를 확인하세요")
+        function check() {
+            if(inputcheck.Id.value == "") {
+                alert("아이디를 입력하세요.");
+                inputcheck.Id.focus();
+                return false;
+            }
+            else if(inputcheck.Password.value == "") {
+                alert("비밀번호를 입력하세요.");
+                inputcheck.Password.focus();
+                return false;
+            }
+            else return true;
         }
     </script>
+    <title>로그인</title>
+</head>
 
-      </head>
-      <body id="backcolor">
-        <div class="container">
-          <div class="row">
+<body>
+<article class="container">
+    <div class="page-header">
+        <h1>로그인</h1>
+    </div>
 
-              <div class="col-md-4"></div>
-            <div class="col-md-4">
-              <div id="backcolor" class="well" style="margins:auto">
-                  <form accept-charset="UTF-8" role="form" method="post" action="/loginOk">
-                <div class="form-group">
-                    <input name="user_id" value='' id="username" placeholder="Username" type="text" class="form-control" />
-                </div>
-                <div class="form-group">
-
-                    <input name="user_password" id="password" value='' placeholder="Password" type="password" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <input id="addcolor"type="submit" class="btn btn-default btn-login-submit btn-block " value="Login" />
-                </div>
-                <hr />
-                <div class="form-group">
-                    <a id="addcolor"href="/signUp/0" class="btn btn-default btn-block "> 회원가입</a>
-                    <a id="addcolor"href="" class="btn btn-default btn-block "> 아이디/비밀번호찾기</a>
-                </div>
-                  <div class="col-md-4"></div>
-            </form>
-              </div>
+    <form name="inputcheck" onsubmit="return check()" class="form-horizontal" action="" method="post">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="Id">아이디</label>
+            <div class="col-sm-6">
+                <input class="form-control" name="Id" id="Id" type="text" placeholder="아이디">
             </div>
-      </div>
-      </div>
+        </div>
 
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="../javascripts/bootstrap.min.js"></script>
-  </body>
-  </html>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="Password">비밀번호</label>
+            <div class="col-sm-6">
+                <input class="form-control" name="Password" id="Password" type="password" min="8" placeholder="비밀번호">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-12 text-center">
+                <button class="btn btn-primary" type="submit">로그인</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-12 text-center">
+                <a id="addcolor"href="/signup"> 회원가입</a>
+                <a id="addcolor"href=""> 아이디/비밀번호찾기</a>
+            </div>
+        </div>
+    </form>
+</article>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../javascripts/bootstrap.min.js"></script>
+</body>
+</html>

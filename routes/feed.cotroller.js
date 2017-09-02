@@ -103,7 +103,7 @@ exports.parse = function (){
 
         }
       }
-    }); 
+    });
   } ).catch( function( err ) {
     console.log("Db에서 urlId전체 가져오기 실패, err:" + err);
   } );

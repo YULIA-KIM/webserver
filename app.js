@@ -33,24 +33,16 @@ app.use('/users', users);
 app.use('/urls', urls);
 app.use('/feeds', feeds);
 
-app.get('/main', function(req, res){
-    res.render('main');
-});
-
 app.get('/login', function(req, res) {
-    res.render('login2');
+    res.render('login');
 });
 
 app.get('/signup', function(req, res) {
-    res.render('signup2');
+    res.render('signup');
 });
 
-app.get('/preview', function(req, res) {
-    res.render('preview');
-});
-
-app.get('/layout', function(req, res) {
-    res.render('layout', {url_name:'네이버', title:'title입니다.', content:'content입니다.'});
+app.get('/main', function(req, res) {
+    res.render('main', {url_name:'네이버', title:'title입니다.', content:'content입니다.'});
 });
 
 // catch 404 and forward to error handler
