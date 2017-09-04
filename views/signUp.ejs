@@ -46,10 +46,10 @@
       <h2 style="text-align:center; font-weight:bold"><img style="margin-left:0px" src="https://image.flaticon.com/icons/svg/540/540209.svg" width="40px" height="40px">  SCRAMBLE </h2>
     </div>
     <article id="signup">
-      <div>
-        <input type="text" class="form-control" style="font-size:18px; width:350px; height:60px" name="userId" id="userId"  placeholder="아이디" /></br>
-        <input type="password" class="form-control" style="font-size:18px; width:350px; height:60px" name="password" id="password" onkeyup="check()" placeholder="비밀번호" /></br>
-        <input type="password" class="form-control" style="font-size:18px; width:350px; height:60px" id="passwordCheck"  onkeyup="check()" placeholder="비밀번호확인" /></br>
+      <form action="" method="post">
+        <input type="email" class="form-control" style="font-size:18px; width:350px; height:60px" id="id" placeholder="이메일" /></br>
+        <input type="password" class="form-control" style="font-size:18px; width:350px; height:60px" id="password" name="pw" onkeyup="check()" placeholder="비밀번호" /></br>
+        <input type="password" class="form-control" style="font-size:18px; width:350px; height:60px" id="passwordCheck" name="pw" onkeyup="check()" placeholder="비밀번호확인" /></br>
         <p id="CheckText" style="color:red; height:50">　</p>
         </br>
         </br>
@@ -59,7 +59,7 @@
 
     <script type="text/javascript">
       function check() {
-        var id = document.getElementById("userId").value;
+        var id = document.getElementById("id").value;
         var password = document.getElementById("password").value;
         var passwordCheck = document.getElementById("passwordCheck").value;
 
@@ -70,7 +70,7 @@
         }
 
       }
-      
+
         $('#signup_submit').click( function() {
             if ($('#userId').val() == '' || $('#password').val() == '' || $('#passwordCheck').val() == '') {
                 alert('아이디 또는 비밀번호를 입력하세요.');
