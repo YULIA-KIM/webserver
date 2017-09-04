@@ -28,10 +28,10 @@ router.post('/loginOk', function(req, res, next) {
        if(result){
          const token = jwt.sign({userID: userId, password: password}, SECRET, { expiresIn: EXPIRES })
          console.log(token);
-
-         res.render('main',{ token: token });
+         res.json({ token: token, isOK : true });
      }else{
          console.log("아이디 존재안해");
+         res.json({ IsOK : false });
        };
      })
    };

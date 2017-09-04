@@ -53,7 +53,7 @@
         <p id="CheckText" style="color:red; height:50">　</p>
         </br>
         </br>
-        <input type="submit"  style="font-size:18px; width:350px; height:60px" class="btn btn-warning" id="signup_submit" value="회원가입" onclick="alert('회원가입되었습니다.')" />
+        <input type="submit"  style="font-size:18px; width:350px; height:60px" class="btn btn-warning" id="signup_submit" value="회원가입"/>
       </div>
     </article>
 
@@ -72,22 +72,30 @@
       }
       
         $('#signup_submit').click( function() {
-            $.ajax({
-                url:'/users/signUpOk',
-                dataType:'json',
-                type:'post',
-                data:{'userId':$('#userId').val(),'password':$('#password').val()},
-//                beforeSend: function (request) {
-//                    request.setRequestHeader('x-access-token', '');
-//                },
-                success:function(res) {
-//                    if (signup_success['signup_success'] == true) {
-//                       alert('회원가입성공');
-                    console.log(res);
-                  }
-            })
+            if ($('#userId').val() == '' || $('#password').val() == '' || $('#passwordCheck').val() == '') {
+                alert('아이디 또는 비밀번호를 입력하세요.');
+            }
+            else {
+                $.ajax({
+                    url: '/users/signUpOk',
+                    dataType: 'json',
+                    type: 'post',
+                    data: {'userId': $('#userId').val(), 'password': $('#password').val()},
+                    success: function (res) {
+                        if (res['isOK'] == true) {
+                            alert('회원가입되었습니다.');
+                            window.close();
+                        }
+                        else {
+                            alert('아이디 또는 비밀번호가 없습니다.');
+                        }
+                    },
+                    error: function (error) {
+                        alert("Error!");
+                    }
+                })
+            }
         })
-      })
     </script>
   </section>
 

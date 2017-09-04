@@ -8,21 +8,18 @@
   <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 
   <script language="javascript">
-    function popup_signup() {
-      window.open("signup", "회원가입",
-        'left=' + (screen.availWidth - 460) / 2 + ',top=' + (screen.availHeight - 550) / 2 + ', width=460px,height=550px');
-    }
-
-    function popup_login() {
-      window.open("users/login", "로그인",
-        'left=' + (screen.availWidth - 460) / 2 + ',top=' + (screen.availHeight - 550) / 2 + ', width=460px,height=550px');
-    }
+      function popup_signup() {
+          window.open("signup", "회원가입",
+              'left=' + (screen.availWidth - 460) / 2 + ',top=' + (screen.availHeight - 550) / 2 + ', width=460px,height=550px');
+      }
   </script>
 
   <style>
     @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
     @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
     @import url('https://fonts.googleapis.com/css?family=Amatic+SC|Baloo+Tammudu|Delius+Unicase|Griffy|Lobster|Pacifico');
+    @import url(//cdn.rawgit.com/hiun/NanumSquare/master/nanumsquare.css);
+
     #header {
       /*font-family: 'Baloo Tammudu', cursive;
       font-family: 'Lobster', cursive;
@@ -49,10 +46,10 @@
     }
 
     #sidebar {
+      font-family: 'Noto Sans KR', sans-serif;
       padding: 0;
       margin: 0;
       width: 350px;
-      /*원래 350px*/
       position: absolute;
       top: 50px;
       left: 0;
@@ -69,7 +66,7 @@
       padding-left: 360px;
       padding-right: 2%;
       margin: 1%;
-      font-family: 'Noto Sans KR', sans-serif;
+      font-family: 'Nanum Square';
     }
 
     table,
@@ -90,165 +87,200 @@
 
   <title>SCRAMBLE</title>
   <script>
-    $(document).ready(function() {
-      var offset = $('.menu').offset();
-      $(window).scroll(function() {
-        if ($(document).scrollTop() > offset.top) {
-          $('.menu').addClass('fixed');
-        } else {
-          $('.menu').removeClass('fixed');
-        }
+      $(document).ready(function() {
+          var offset = $('.menu').offset();
+          $(window).scroll(function() {
+              if ($(document).scrollTop() > offset.top) {
+                  $('.menu').addClass('fixed');
+              } else {
+                  $('.menu').removeClass('fixed');
+              }
+          });
       });
-    });
   </script>
 </head>
 
 <body>
-  <div id="header">
-    <div id="header_logo" style="font-weight:bold; letter-spacing: 10px ;  margin-top:-5px; font-size:35px; height:0px ">
-      <img style="margin-left:50px; margin-top:-5px" src="https://image.flaticon.com/icons/svg/540/540209.svg" width="40px" height="40px"> SCRAMBLE
-    </div>
+<div id="header">
+  <div id="header_logo" style="font-weight:bold; letter-spacing: 10px ;  margin-top:-5px; font-size:35px; height:0px ">
+    <img style="margin-left:50px; margin-top:-5px" src="https://image.flaticon.com/icons/svg/540/540209.svg" width="40px" height="40px"> SCRAMBLE
+  </div>
 
-    <div id="header_btn">
-      <button id="login_check" class="btn btn-warning" style="width:90px;" onclick="popup_login();">로그인</button> &nbsp;&nbsp;
+  <div id="header_btn">
+    <div id="login_form" class="form-inline">
+      <div class="form-group">
+        <input type="email" class="form-control" id="userId" placeholder="이메일을 입력해주세요">&nbsp;&nbsp;
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요">&nbsp;&nbsp;
+      </div>
+      <input type="submit" id="login_submit" class="btn btn-warning" style="width:90px;" value="로그인"/> &nbsp;&nbsp;
       <button class="btn" style="width:90px;" onclick="popup_signup();">회원가입</button></br>
     </div>
   </div>
-  <div id="" style="-webkit-overflow-scrolling: touch;">
-    <div id="sidebar">
-      <table border="0" class="text-center">
-        <tr>
-          <td style="width:250px"><input type="text" size="8" id="name" class="form-control" placeholder="웹페이지 이름을 입력하세요." /> </td>
-          <td style="width:70px" rowspan="2" padding=5px> <input type="button" class="btn btn-success" style="height:90px" id="address_regist" value="등록" onclick="alert('등록되었습니다.')" /></td>
-        </tr>
-        <tr>
-          <td><input type="text" id="address" class="form-control" placeholder="웹페이지 주소를 입력하세요." /></td>
-        </tr>
-      </table>
-      <hr style="size:9px" />
-      <div id="name_list">
-
-      </div>
+</div>
+<div id="" style="-webkit-overflow-scrolling: touch;">
+  <form action id="sidebar">
+    <table border="0" class="text-center">
+      <tr>
+        <td style="width:250px; line-height:1.0em "><input type="text" size="8" id="name" class="form-control" placeholder="웹페이지 이름을 입력하세요." /> </br>
+          <input type="text" id="address" class="form-control" placeholder="웹페이지 주소를 입력하세요." /></td>
+        <td style="width:70px" rowspan="2" padding=5px> <input type="button" class="btn btn-success" style="height:90px" id="address_regist" value="등록" onclick="alert('등록되었습니다.')" /></td>
+      </tr>
+    </table>
+    <hr style="size:9px" />
+    <div id="name_list">
+        <%=url_name%>
     </div>
-    <div id="content" style="height: calc(100vh - 95px); overflow: auto;">
-      <form id="1" style="border:1; height:220px;">
-        <h4 style="margin-left:30px"><%=title%> </h4>
-        <img HSPACE=30 height="160px" src="http://img.youtube.com/vi/qGVKh-n-ADI/1.jpg" align="left">
-        <div style="">
-          <div>
-            <%=content%>
-              </br>
-          </div>
-        </div>
-      </form>
-
-      <form id="2" style="border:1; height:220px;">
-        <img HSPACE=30 height="190px" src="http://img.youtube.com/vi/qGVKh-n-ADI/1.jpg" align="left">
-        <div style="">
-          <div style="font-size:20px">
+  </form>
+  <div id="content" style="height: calc(100vh - 95px); overflow: auto;">
+    <form id="1" style="border:1; height:200px;">
+      <img HSPACE=20 height="180px" src="http://img.youtube.com/vi/qGVKh-n-ADI/1.jpg" align="left">
+      <div style="">
+        <div style="font-size:20px">
             <%=title%>
-              </br>
-          </div>
-          <div>
-            <%=content%>
-              </br>
-          </div>
+          </br>
         </div>
-      </form>
+        <div>
+            <%=content%>
+          </br>
+        </div>
+      </div>
+    </form>
 
-      <input type="button" id="more_feed" value="더보기" />
+    <form id="2" style="border:1; height:200px;">
+      <img HSPACE=20 height="180px" src="http://img.youtube.com/vi/qGVKh-n-ADI/1.jpg" align="left">
+      <div style="">
+        <div style="font-size:20px">
+            <%=title%>
+          </br>
+        </div>
+        <div>
+            <%=content%>
+          </br>
+        </div>
+      </div>
+    </form>
+
+    <div style="text-align:center">
+      <input type="button" class="btn-default" id="more_feed" style="" value="더보기" />
     </div>
   </div>
-  <script>
+</div>
+
+<script>
     $(document).ready(function(res) {
-      $('#close').click(function() {
-        $('#popup').hide();
-      })
+        $('#close').click(function() {
+            $('#popup').hide();
+        })
+    })
+
+    $('#login_submit').click(function() {
+        $.ajax({
+            url: '/users/loginOk',
+            dataType: 'json',
+            type: 'post',
+            data: {'userId':$('#userId').val(),'password':$('#password').val()},
+            success: function (res) {
+                if (res['isOK'] == true) {
+                    alert('로그인되었습니다.');
+                    $('#login_form').remove();
+                    $('#header_btn').append('<input type="submit" id="login_submit" class="btn btn-warning" style="width:90px;" value="로그아웃"/>  &nbsp;&nbsp;');
+                }
+                else{
+                    alert('아이디 또는 비밀번호가 없습니다.');
+                }
+            },
+            error : function(error) {
+                alert("Error!");
+            }
+        })
     })
 
     $('#address_regist').click(function() {
-      $.ajax({
-        url: '', //"/main/"+id||pw
-        dataType: 'json',
-        type: 'POST',
-        data: {
-          'name': $('#name').val(),
-          'address': $('#address').val()
-        },
-        success: function(result) { //서버가 리턴해준 result가 인자로 온다
-          if (result['result'] == true) { //서버가 리턴해준 result값이 true라면(서버측에서 지정함. 예를 들어 로그인을 하고 난 다음 성공적이라고 11을 보내주면 true가 아니라 11이 됨)
-            $('#name_list').append('<ul>' + url_name + '</ul>');
-          }
-        }
-      })
+        $.ajax({
+            url: '/urls',
+            dataType: 'json',
+            type: 'POST',
+            data: {
+                'name': $('#name').val(),
+                'address': $('#address').val()
+            },
+            success: function(res) { //서버가 리턴해준 result가 인자로 온다
+                if (res['isOK'] == true) { //서버가 리턴해준 result값이 true라면(서버측에서 지정함. 예를 들어 로그인을 하고 난 다음 성공적이라고 11을 보내주면 true가 아니라 11이 됨)
+                    $('#name_list').append('<ul>' + name + '</ul>');
+                }
+            },
+            error : function(error) {
+                alert("Error!");
+            }
+        })
     })
 
-    $(function() {
-      $.ajax({
-        url: '', //불러올 피드
-        dataType: 'json',
-        type: 'POST',
-        cache: false,
-        success: load_rss()
-      })
-    })
+    //    $('#1').click(function() {
+    //      $.ajax({
+    //        url: '/feed', //불러올 피드
+    //        dataType: 'json',
+    //        type: 'POST',
+    //        cache: false,
+    //        success: function() {
+    //          //console.log(rss);
+    //          $(rss).find('item').each(function(index) {
+    //            var title = $(this).find('title').text();
+    //            var content = $(this).find('content').text;
+    //            var image = $(this).find('image').text();
+    //            var url = $(this).find('urlId').text();
+    //            for (var i = 0; i < rss.length; i++) {
+    //              $('#content').after('<form id="' + i + '">' + '<p>' + title + '<p>' + '<p>' + image + content + '<p>' + '</from>');
+    //              //console.log(this);
+    //              $("#" + i).click(function() {
+    //              $(location).attr('href', url);
+    //              })
+    //            }
+    //          })
+    //        },
+    //        error : function(error) {
+    //          alert("Error!");
+    //        }
+    //      })
+    //    })
+    //
+    //    $('#more_feed').click(function() {
+    //      $(this).text('Loading...');
+    //      var ele = $(this).parent('li');
+    //      $.ajax({
+    //        url: '/feed',
+    //        dataType: 'json',
+    //        type: 'POST',
+    //        data: {
+    //          page: $(this).data('page'),
+    //        },
+    //        success: function(response) {
+    //          if (response) {
+    //            ele.hide();
+    //            load_rss();
+    //          }
+    //        }
+    //      });
+    //    });
 
-
-    $('#more_feed').click(function() {
-      $(this).text('Loading...');
-      var ele = $(this).parent('li');
-      $.ajax({
-        url: '',
-        dataType: 'json',
-        type: 'POST',
-        data: {
-          page: $(this).data('page'),
-        },
-        success: function(response) {
-          if (response) {
-            ele.hide();
-            load_rss();
-          }
-        }
-      });
-    });
-
-    var load_rss = function(rss) {
-    //console.log(rss);
-    $(rss).find('item').each(function(index) {
-    var title = $(this).find('title').text();
-    var content = $(this).find('content').text;
-    var image = $(this).find('image').text();
-    var url = $(this).find('urlId').text();
-    for (var i = 0; i < rss.length; i++) {
-      $('#content').after('<form id="' + i + '">' + '<p>' + title + '<p>' + '<p>' + image + content + '<p>' + '</from>');
-      //console.log(this);
-      $("#" + i).click(function() {
-        $(location).attr('href', url);
-      })
-    }
-    })
-    }
-    });
-    });
-
-    var load_rss = function(rss) {
-      console.log(rss);
-      $(rss).find('item').each(function(index) {
-        var title = $(this).find('title').text();
-        var content = $(this).find('content').text;
-        var image = $(this).find('image').text();
-        var url = $(this).find('urlId').text();
-        for (var i = 0; i < rss.length; i++) {
-          $('#content').after('<form id="' + i + '">' + '<p>' + title + '<p>' + '<p>' + image + content + '<p>' + '</from>');
-          console.log(this);
-          $("#" + i).click(function() {
-            $(location).attr('href', url);
-          })
-        }
-      })
-    }
-  </script>
+    //    var load_rss = function(rss) {
+    //      console.log(rss);
+    //      $(rss).find('item').each(function(index) {
+    //        var title = $(this).find('title').text();
+    //        var content = $(this).find('content').text;
+    //        var image = $(this).find('image').text();
+    //        var url = $(this).find('urlId').text();
+    //        for (var i = 0; i < rss.length; i++) {
+    //          $('#content').after('<form id="' + i + '">' + '<p>' + title + '<p>' + '<p>' + image + content + '<p>' + '</from>');
+    //          console.log(this);
+    //          $("#" + i).click(function() {
+    //            $(location).attr('href', url);
+    //          })
+    //        }
+    //      })
+    //    }
+</script>
 
 </body>
 
