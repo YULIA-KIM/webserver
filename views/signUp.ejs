@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
@@ -30,11 +31,13 @@
       font-family: 'Noto Sans KR', sans-serif;
       line-height: 1.3em;
       position: absolute;
-      top: 47%;
+      top: 20%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%);
     }
   </style>
+  <script type="text/javascript">
+  </script>
 </head>
 
 <body>
@@ -45,13 +48,29 @@
     <article id="signup">
       <div>
         <input type="text" class="form-control" style="font-size:18px; width:350px; height:60px" name="userId" id="userId"  placeholder="아이디" /></br>
-        <input type="password" class="form-control" style="font-size:18px; width:350px; height:60px" name="password" id="password" placeholder="비밀번호" /></br>
-        <input type="password" class="form-control" style="font-size:18px; width:350px; height:60px" placeholder="비밀번호확인" /></br></br>
+        <input type="password" class="form-control" style="font-size:18px; width:350px; height:60px" name="password" id="password" onkeyup="check()" placeholder="비밀번호" /></br>
+        <input type="password" class="form-control" style="font-size:18px; width:350px; height:60px" id="passwordCheck"  onkeyup="check()" placeholder="비밀번호확인" /></br>
+        <p id="CheckText" style="color:red; height:50">　</p>
+        </br>
+        </br>
         <input type="submit"  style="font-size:18px; width:350px; height:60px" class="btn btn-warning" id="signup_submit" value="회원가입" onclick="alert('회원가입되었습니다.')" />
       </div>
     </article>
 
-    <script>
+    <script type="text/javascript">
+      function check() {
+        var id = document.getElementById("userId").value;
+        var password = document.getElementById("password").value;
+        var passwordCheck = document.getElementById("passwordCheck").value;
+
+        if (password != passwordCheck) {
+          document.getElementById("CheckText").innerHTML = "비밀번호 불일치"
+        } else {
+          document.getElementById("CheckText").innerHTML = "<font color=blue>비밀번호 일치</font>"
+        }
+
+      }
+      
         $('#signup_submit').click( function() {
             $.ajax({
                 url:'/users/signUpOk',
@@ -68,8 +87,10 @@
                   }
             })
         })
+      })
     </script>
-</section>
+  </section>
 
 </body>
+
 </html>

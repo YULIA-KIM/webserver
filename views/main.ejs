@@ -44,14 +44,15 @@
       font-family: 'Noto Sans KR', sans-serif;
       vertical-align: middle;
       float: right;
-       padding-top:5px;
+      padding-top: 5px;
       padding-right: 1%;
     }
 
     #sidebar {
       padding: 0;
       margin: 0;
-      width:350px; /*원래 350px*/
+      width: 350px;
+      /*원래 350px*/
       position: absolute;
       top: 50px;
       left: 0;
@@ -66,7 +67,9 @@
 
     #content {
       padding-left: 360px;
+      padding-right: 2%;
       margin: 1%;
+      font-family: 'Noto Sans KR', sans-serif;
     }
 
     table,
@@ -102,7 +105,7 @@
 
 <body>
   <div id="header">
-    <div id="header_logo"  style="font-weight:bold; letter-spacing: 10px ;  margin-top:-5px; font-size:35px; height:0px ">
+    <div id="header_logo" style="font-weight:bold; letter-spacing: 10px ;  margin-top:-5px; font-size:35px; height:0px ">
       <img style="margin-left:50px; margin-top:-5px" src="https://image.flaticon.com/icons/svg/540/540209.svg" width="40px" height="40px"> SCRAMBLE
     </div>
 
@@ -127,80 +130,125 @@
 
       </div>
     </div>
-    <div id="content">
+    <div id="content" style="height: calc(100vh - 95px); overflow: auto;">
+      <form id="1" style="border:1; height:220px;">
+        <h4 style="margin-left:30px"><%=title%> </h4>
+        <img HSPACE=30 height="160px" src="http://img.youtube.com/vi/qGVKh-n-ADI/1.jpg" align="left">
+        <div style="">
+          <div>
+            <%=content%>
+              </br>
+          </div>
+        </div>
+      </form>
 
-      <input type="button" id="more_feed" value="더보기"/>
+      <form id="2" style="border:1; height:220px;">
+        <img HSPACE=30 height="190px" src="http://img.youtube.com/vi/qGVKh-n-ADI/1.jpg" align="left">
+        <div style="">
+          <div style="font-size:20px">
+            <%=title%>
+              </br>
+          </div>
+          <div>
+            <%=content%>
+              </br>
+          </div>
+        </div>
+      </form>
+
+      <input type="button" id="more_feed" value="더보기" />
     </div>
   </div>
   <script>
-        $(document).ready( function(res) {
-            $('#close').click(function () {
-                $('#popup').hide();
-            })
-        })
+    $(document).ready(function(res) {
+      $('#close').click(function() {
+        $('#popup').hide();
+      })
+    })
 
-        $('#address_regist').click(function() {
-            $.ajax({
-                url:'',         //"/main/"+id||pw
-                dataType:'json',
-                type:'POST',
-                data:{'name':$('#name').val(),'address':$('#address').val()},
-                success:function(result){   //서버가 리턴해준 result가 인자로 온다
-                    if(result['result']==true){     //서버가 리턴해준 result값이 true라면(서버측에서 지정함. 예를 들어 로그인을 하고 난 다음 성공적이라고 11을 보내주면 true가 아니라 11이 됨)
-                        $('#name_list').append('<ul>'+url_name+'</ul>');
-                    }
-                }
-            })
-        })
-
-        $(function () {
-            $.ajax({
-                url:'',     //불러올 피드
-                dataType:'json',
-                type:'POST',
-                cache: false,
-                success:load_rss()
-            })
-        })
-
-
-        $('#more_feed').click(function() {
-            $(this).text('Loading...');
-            var ele = $(this).parent('li');
-            $.ajax({
-                url: '',
-                dataType:'json',
-                type: 'POST',
-                data: {
-                    page:$(this).data('page'),
-                },
-                success: function(response){
-                    if(response){
-                        ele.hide();
-                        load_rss();
-                    }
-                }
-            });
-        });
-
-        var load_rss=function(rss){
-            //console.log(rss);
-            $(rss).find('item').each(function (index) {
-                var title=$(this).find('title').text();
-                var content=$(this).find('content').text;
-                var image=$(this).find('image').text();
-                var url=$(this).find('urlId').text();
-                for(var i = 0; i < rss.length; i++) {
-                    $('#content').after('<form id="' + i + '">' + '<p>' + title + '<p>' + '<p>' + image + content + '<p>' + '</from>');
-                    //console.log(this);
-                    $("#"+i).click(function () {
-                        $(location).attr('href', url);
-                    })
-                }
-            })
+    $('#address_regist').click(function() {
+      $.ajax({
+        url: '', //"/main/"+id||pw
+        dataType: 'json',
+        type: 'POST',
+        data: {
+          'name': $('#name').val(),
+          'address': $('#address').val()
+        },
+        success: function(result) { //서버가 리턴해준 result가 인자로 온다
+          if (result['result'] == true) { //서버가 리턴해준 result값이 true라면(서버측에서 지정함. 예를 들어 로그인을 하고 난 다음 성공적이라고 11을 보내주면 true가 아니라 11이 됨)
+            $('#name_list').append('<ul>' + url_name + '</ul>');
+          }
         }
+      })
+    })
 
-    </script>
+    $(function() {
+      $.ajax({
+        url: '', //불러올 피드
+        dataType: 'json',
+        type: 'POST',
+        cache: false,
+        success: load_rss()
+      })
+    })
+
+
+    $('#more_feed').click(function() {
+      $(this).text('Loading...');
+      var ele = $(this).parent('li');
+      $.ajax({
+        url: '',
+        dataType: 'json',
+        type: 'POST',
+        data: {
+          page: $(this).data('page'),
+        },
+        success: function(response) {
+          if (response) {
+            ele.hide();
+            load_rss();
+          }
+        }
+      });
+    });
+
+    var load_rss = function(rss) {
+    //console.log(rss);
+    $(rss).find('item').each(function(index) {
+    var title = $(this).find('title').text();
+    var content = $(this).find('content').text;
+    var image = $(this).find('image').text();
+    var url = $(this).find('urlId').text();
+    for (var i = 0; i < rss.length; i++) {
+      $('#content').after('<form id="' + i + '">' + '<p>' + title + '<p>' + '<p>' + image + content + '<p>' + '</from>');
+      //console.log(this);
+      $("#" + i).click(function() {
+        $(location).attr('href', url);
+      })
+    }
+    })
+    }
+    });
+    });
+
+    var load_rss = function(rss) {
+      console.log(rss);
+      $(rss).find('item').each(function(index) {
+        var title = $(this).find('title').text();
+        var content = $(this).find('content').text;
+        var image = $(this).find('image').text();
+        var url = $(this).find('urlId').text();
+        for (var i = 0; i < rss.length; i++) {
+          $('#content').after('<form id="' + i + '">' + '<p>' + title + '<p>' + '<p>' + image + content + '<p>' + '</from>');
+          console.log(this);
+          $("#" + i).click(function() {
+            $(location).attr('href', url);
+          })
+        }
+      })
+    }
+  </script>
 
 </body>
 

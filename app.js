@@ -37,7 +37,6 @@ app.get('/signup', function(req, res) {
     res.render('signup');
 });
 
-
 app.get('/main', function(req, res) {
     res.render('main', {url_name:'네이버', title:'title입니다.', content:'content입니다.'});
 });
