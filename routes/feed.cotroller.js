@@ -66,17 +66,15 @@ exports.parse = function (){
       for ( let i = 0; i < arrarrTitles.length; ++i ) { //여기서 길이는 urlId개수만큼 있다
         let arrTitles = arrarrTitles[ i ]; //첫번째 urlId의 title들이 들어가있다
         let dbTitle = arrtitle[i]; //마지막 title들의 첫번째 title이 들어가있다
-        let strDbTitle = "'" + dbTitle + "'"; //문자열로 만들어주고
-
-        if( arrTitles[arrTitles.length-1] === dbTitle){
+  
+        if( arrTitles[0] === dbTitle){
           console.log("아직 새로운 기사가 없다");
-          let titleIndex = arrTitles.indexOf(strDbTitle);//49
+          let titleIndex = arrTitles.indexOf(dbTitle);
 
-          console.log(arrTitles.length-1);//49
 
         }else{
           console.log("새로운 기사가 있다");
-          let titleIndex = arrTitles.indexOf(strDbTitle); //이 인덱스 바로 뒤부터 끝까지 디비에 넣으면 된다.
+          let titleIndex = arrTitles.indexOf(dbTitle); //이 인덱스 바로 위부터 맨위까지 보내면 된다.
 
           reader( arrDBResults[i].address, function( err, arrArticles ) {
             if ( err ) {
@@ -84,15 +82,18 @@ exports.parse = function (){
               console.log( strError );
               return fnCallback( strError );
             }
-            for( let i = titleIndex+1; i<arrArticles.length; i++ ){
-              let newArticle = [];
+
+            let arrDBResultsId = arrDBResults[i].Id;
+            let newArticle = [];
+            for( let i = titleIndex-1; -1<i; i-- ) {  //for( let i = titleIndex-1; -1<i; i-- )  //for( let i = titleIndex ; i<3; i++ )
+              
               newArticle.push({
-                urlId: arrDBResults[i].Id,
+                urlId: arrDBResultsId,
                 title: arrArticles[i].title,
                 content: arrArticles[i].content,
                 link: arrArticles[i].link
               });
-            }
+            }      
 
             model.Feed.bulkCreate( newArticle ).then(function (result) { //이미지 정보도 있는거로 바꿔야한다
             }).catch(function (err) {
@@ -133,7 +134,7 @@ exports.init = function (req, res) {
     const feeds = [];
 
     reader(address, function (err, responses) {
-        for(let i = 0; i < responses.length; i++){
+        for(let i = responses.length-1; -1 < i; i--){  //for(let i = 0; i < responses.length; i++){
             var feed = {
                 urlId: urlId,
                 title: responses[i].title,
