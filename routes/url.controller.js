@@ -7,7 +7,7 @@ exports.create = function(req, res){
         userId : req.body.userId,
         feed : req.body.feed })
         .then(function() {
-            res.status(201).send();
+            res.status(201).send({ isOK : true });
         })
 };
 
@@ -29,7 +29,7 @@ exports.delete = function (req, res){
             Id: Id
         }
     }).then(function () {
-        res.status(204).send()
+        res.status(204).send( { isOK : true } );
     })
 };
 

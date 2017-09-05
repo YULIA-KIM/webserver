@@ -31,7 +31,7 @@ router.post('/loginOk', function(req, res, next) {
          res.json({ token: token, isOK : true });
      }else{
          console.log("아이디 존재안해");
-         res.json({ IsOK : false });
+         res.json({ isOK : false });
        };
      })
    };

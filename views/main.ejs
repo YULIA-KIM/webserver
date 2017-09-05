@@ -67,7 +67,6 @@
       padding-right: 2%;
       margin: 1%;
       font-family: 'Nanum Square';
-
     }
 
     table,
@@ -126,12 +125,12 @@
       <tr>
         <td style="width:250px; line-height:1.0em "><input type="text" size="8" id="name" class="form-control" placeholder="웹페이지 이름을 입력하세요." /> </br>
           <input type="text" id="address" class="form-control" placeholder="웹페이지 주소를 입력하세요." /></td>
-        <td style="width:70px" rowspan="2" padding=5px> <input type="button" class="btn btn-success" style="height:90px" id="address_regist" value="등록" onclick="alert('등록되었습니다.')" /></td>
+        <td style="width:70px" rowspan="2" padding=5px> <input type="button" class="btn btn-success" style="height:90px" id="address_regist" value="등록"/></td>
       </tr>
     </table>
     <hr style="size:9px" />
     <div id="name_list">
-        <%=url_name%>
+
     </div>
   </form>
   <div id="content" style="height: calc(100vh - 95px); overflow: auto;">
@@ -171,22 +170,22 @@
 
 <script>
     $(document).ready(function(res) {
-        $('#close').click(function() {
-            $('#popup').hide();
+        $("#close").click(function() {
+            $("#popup").hide();
         })
     })
 
-    $('#login_submit').click(function() {
+    $("#login_submit").click(function() {
         $.ajax({
             url: '/users/loginOk',
             dataType: 'json',
             type: 'post',
-            data: {'userId':$('#userId').val(),'password':$('#password').val()},
+            data: {'userId':$("#userId").val(),'password':$("#password").val()},
             success: function (res) {
                 if (res['isOK'] == true) {
                     alert('로그인되었습니다.');
-                    $('#login_form').remove();
-                    $('#header_btn').append('<input type="submit" id="login_submit" class="btn btn-warning" style="width:90px;" value="로그아웃"/>  &nbsp;&nbsp;');
+                    $("#login_form").remove();
+                    $("#header_btn").append('<input type="submit" id="login_submit" class="btn btn-warning" style="width:90px;" value="로그아웃"/>  &nbsp;&nbsp;');
                 }
                 else{
                     alert('아이디 또는 비밀번호가 없습니다.');
@@ -198,18 +197,23 @@
         })
     })
 
-    $('#address_regist').click(function() {
+    $("#address_regist").click(function() {
+        var url_id = '';
         $.ajax({
             url: '/urls',
             dataType: 'json',
             type: 'POST',
             data: {
-                'name': $('#name').val(),
-                'address': $('#address').val()
+                'name': $("#name").val(),
+                'address': $("#address").val()
             },
-            success: function(res) { //서버가 리턴해준 result가 인자로 온다
-                if (res['isOK'] == true) { //서버가 리턴해준 result값이 true라면(서버측에서 지정함. 예를 들어 로그인을 하고 난 다음 성공적이라고 11을 보내주면 true가 아니라 11이 됨)
-                    $('#name_list').append('<ul>' + name + '</ul>');
+            success: function(res) {
+                if (res['isOK'] == true) {
+                    alert("등록되었습니다.");
+                    insert_names();
+                }
+                else {
+                    alert("등록에 실패했습니다.");
                 }
             },
             error : function(error) {
@@ -218,69 +222,77 @@
         })
     })
 
-    //    $('#1').click(function() {
-    //      $.ajax({
-    //        url: '/feed', //불러올 피드
-    //        dataType: 'json',
-    //        type: 'POST',
-    //        cache: false,
-    //        success: function() {
-    //          //console.log(rss);
-    //          $(rss).find('item').each(function(index) {
-    //            var title = $(this).find('title').text();
-    //            var content = $(this).find('content').text;
-    //            var image = $(this).find('image').text();
-    //            var url = $(this).find('urlId').text();
-    //            for (var i = 0; i < rss.length; i++) {
-    //              $('#content').after('<form id="' + i + '">' + '<p>' + title + '<p>' + '<p>' + image + content + '<p>' + '</from>');
-    //              //console.log(this);
-    //              $("#" + i).click(function() {
-    //              $(location).attr('href', url);
-    //              })
-    //            }
-    //          })
-    //        },
-    //        error : function(error) {
-    //          alert("Error!");
-    //        }
-    //      })
-    //    })
-    //
-    //    $('#more_feed').click(function() {
-    //      $(this).text('Loading...');
-    //      var ele = $(this).parent('li');
-    //      $.ajax({
-    //        url: '/feed',
-    //        dataType: 'json',
-    //        type: 'POST',
-    //        data: {
-    //          page: $(this).data('page'),
-    //        },
-    //        success: function(response) {
-    //          if (response) {
-    //            ele.hide();
-    //            load_rss();
-    //          }
-    //        }
-    //      });
-    //    });
+    var insert_names = function () {
+        $.ajax({
+            url: '/urls/all',
+            dataType: 'json',
+            type: 'POST',
+            success: function(res) {
+                $("#name_list").remove();
+                for (var i = 0; i < res.length; i++) {
+                    var name = res[i].name;
+                    var url_id = res[i].urlId;
+                    $("#name_list").append('<p><ul id="' + i + '" onclick="insert_feeds(' + url_id + ');">' + name + '</ul> <button id="' + i + '" onclick="delete_name(' + url_id + ',' + i + ');">삭제</button> </p>');
+                }
+            },
+            error : function(error) {
+                alert("name불러오기 실패");
+            }
+        })
+    }
 
-    //    var load_rss = function(rss) {
-    //      console.log(rss);
-    //      $(rss).find('item').each(function(index) {
-    //        var title = $(this).find('title').text();
-    //        var content = $(this).find('content').text;
-    //        var image = $(this).find('image').text();
-    //        var url = $(this).find('urlId').text();
-    //        for (var i = 0; i < rss.length; i++) {
-    //          $('#content').after('<form id="' + i + '">' + '<p>' + title + '<p>' + '<p>' + image + content + '<p>' + '</from>');
-    //          console.log(this);
-    //          $("#" + i).click(function() {
-    //            $(location).attr('href', url);
-    //          })
-    //        }
-    //      })
-    //    }
+    var insert_feeds = function (url_id) {
+        $.ajax({
+            url: '/urls/'+url_id,
+            dataType: 'json',
+            type: 'POST',
+            success: function(res) {
+                $(res).each(function() {
+                    var title = '';
+                    var content = '';
+                    var image = '';
+                    var url = '';
+                    for (var i = 0; i < res.length; i++) {
+                        title = $(this).find('title').text;
+                        content = $(this).find('content').text;
+                        image = $(this).find('image').text();
+                        url = $(this).find('urlId').text();
+                        $('#content').append('<form id="feed_' + i + '" onclick="connect_url(' + url + ',' + i +');">' + '<p>' + title + '<p>' + '<p>' + image + content + '<p>' + '</from>');
+                        $("#" + i).click(function() {
+                            $(location).attr('href', url);
+                        })
+                    }
+                })
+            },
+            error : function(error) {
+                alert("Error!");
+            }
+        })
+    }
+
+    var delete_name = function (url_id, i) {
+        $.ajax({
+            url: '/urls/delete',
+            dataType: 'json',
+            type: 'POST',
+            data:{'userId':url_id},
+            success: function(res) {
+                if (res['isOK'] == true) {
+                    $("#" + i).remove();
+                }
+            },
+            error : function(error) {
+                alert("Error!");
+            }
+        })
+    }
+
+    var connect_url = function (url, i) {
+        $("#feed_" + i).click(function() {
+            $(location).attr('href', url);
+        })
+    }
+
 </script>
 
 </body>
