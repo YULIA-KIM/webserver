@@ -1,10 +1,10 @@
-var model = require('../models/Model');
-var reader = require('feed-read');
-var async = require('async');
+const model = require('../models/Model');
+const reader = require('feed-read');
+const async = require('async');
 
 exports.parse = function (){
 
-  model.Url.findAll( { attributes: ['address', 'Id'] } ).then( function( arrDBResults ) {
+  model.Url.findAll( { attributes: ['address', 'Id', 'state'] } ).then( function( arrDBResults ) {
 
     let tasks = [
 
@@ -71,7 +71,6 @@ exports.parse = function (){
           console.log("아직 새로운 기사가 없다");
           let titleIndex = arrTitles.indexOf(dbTitle);
 
-
         }else{
           console.log("새로운 기사가 있다");
           let titleIndex = arrTitles.indexOf(dbTitle); //이 인덱스 바로 위부터 맨위까지 보내면 된다.
@@ -83,25 +82,37 @@ exports.parse = function (){
               return fnCallback( strError );
             }
 
+            let feedState = arrDBResults[i].state;
             let arrDBResultsId = arrDBResults[i].Id;
             let newArticle = [];
-            for( let i = titleIndex-1; -1<i; i-- ) {  //for( let i = titleIndex-1; -1<i; i-- )  //for( let i = titleIndex ; i<3; i++ )
-              
-              newArticle.push({
-                urlId: arrDBResultsId,
-                title: arrArticles[i].title,
-                content: arrArticles[i].content,
-                link: arrArticles[i].link
+
+            if( feedState === 1 ){  
+              model.Feed.destroy({ where: { urlId: arrDBResultsId } }).then(function() {
+                model.Url.update({ state: 0 },
+                  { where: { Id : arrDBResultsId } }).then(function(result) {
+                  
+                    for( let i = titleIndex-1; -1<i; i-- ) {
+                      newArticle.push({
+                        urlId: arrDBResultsId,
+                        title: arrArticles[i].title,
+                        content: arrArticles[i].content,
+                        link: arrArticles[i].link
+                      });
+                    }
+
+                    model.Feed.bulkCreate( newArticle ).then(function (result) {
+                    }).catch(function (err) {
+                      res.status(400).json({error: 'DB create new feed error'});
+                      console.log("db에 정보 넣기 실패");
+                    });
+                }).catch(function(err) {
+                  console.log( "error: DB state update error" );
+                });
+              }).catch(function(err) {
+                console.log( "error: DB destroy error" );
               });
-            }      
-
-            model.Feed.bulkCreate( newArticle ).then(function (result) { //이미지 정보도 있는거로 바꿔야한다
-            }).catch(function (err) {
-              console.log("db에 정보 넣기 실패");
-            });
-
+            }
           });
-
         }
       }
     });
