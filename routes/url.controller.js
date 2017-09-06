@@ -1,27 +1,48 @@
 const model = require('../models/Model');
+const jwt = require('jsonwebtoken');
 
 exports.create = function(req, res){
-    const userId = req.body.userId;
-    
-    model.User.findOne({
-        where : {
-            userId: userId
+    let token = req.body.token;
+    console.log(token);
+
+    let check = function( token ){
+        if(!token) {
+            console.log("token is undefined");
         }
-    }).then(function (user) {
-        model.Url.create({
-            address : req.body.address,
-            name : req.body.name,
-            userId : user.Id,
-            feed : req.body.feed })
-            .then(function() {
-                res.status(201).send({ isOK : true });
-            })
-    })
+        var decoded = jwt.verify(token, "AdeFESddfTg765JhhgIu");
+            console.log(decoded);
+            model.User.findOne({
+              where: {
+                userId: decoded.userID //어떻게 받아오는지 확인해야한다
+              }
+            }).then(function(user){
+                console.log( user.userId );
+              if(!user){
+                console.log("권한이 없습니다.");
+              }else {
+                console.log("권한이 있네 ㅊㅋ");
+                model.Url.create({
+                    address : req.body.address,
+                    name : req.body.name,
+                    userId : user.userId,
+                    feed : req.body.feed })
+                    .then(function() {
+                        model.Url.findAll()
+                        .then(function(urls) {
+                            res.status(201).send({ isOK : true , urls});
+                        })
+                    })
+              }
+            });
+      }
+    check(token);
 };
 
 exports.readAllUrls = function (req, res) {
+    let token = req.body;
+    console.log(token);
     model.Url.findAll()
-        .then(function(urls) {
+        .then(function(urls) {            
             res.json(urls);
         })
 };

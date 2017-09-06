@@ -12,15 +12,10 @@
     @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
     @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
     @import url('https://fonts.googleapis.com/css?family=Amatic+SC|Baloo+Tammudu|Delius+Unicase|Griffy|Lobster|Pacifico');
-    @import url(//fonts.googleapis.com/earlyaccess/jejuhallasan.css);
-
     #header {
-
       font-family: 'Amatic SC', cursive;
-      /*font-family: 'Delius Unicase', cursive;*/
       height: 70px;
       background: #fff;
-      /*z-index: 100;*/
       padding-top: 20px;
       font-size: 25px;
       font-weight: bold;
@@ -36,8 +31,6 @@
       transform: translate(-50%);
     }
   </style>
-  <script type="text/javascript">
-  </script>
 </head>
 
 <body>
@@ -46,56 +39,64 @@
       <h2 style="text-align:center; font-weight:bold"><img style="margin-left:0px" src="https://image.flaticon.com/icons/svg/540/540209.svg" width="40px" height="40px">  SCRAMBLE </h2>
     </div>
     <article id="signup">
-      <form action="" method="post">
-        <input type="email" class="form-control" style="font-size:18px; width:350px; height:60px" id="id" placeholder="이메일" /></br>
-        <input type="password" class="form-control" style="font-size:18px; width:350px; height:60px" id="password" name="pw" onkeyup="check()" placeholder="비밀번호" /></br>
-        <input type="password" class="form-control" style="font-size:18px; width:350px; height:60px" id="passwordCheck" name="pw" onkeyup="check()" placeholder="비밀번호확인" /></br>
-        <p id="CheckText" style="color:red; height:50">　</p>
-        </br>
-        </br>
-        <input type="submit"  style="font-size:18px; width:350px; height:60px" class="btn btn-warning" id="signup_submit" value="회원가입"/>
-      </div>
+      <div>
+        <input type="email" class="form-control" style="font-size:18px; width:350px; height:60px" name="userId" id="userId" placeholder="이메일" /></br>
+        <input type="password" class="form-control" style="font-size:18px; width:350px; height:60px" name="password" id="password" onblur="check()" placeholder="비밀번호" /></br>
+        <input type="password" class="form-control" style="font-size:18px; width:350px; height:60px" onkeyup="check()" id="passwordCheck" placeholder="비밀번호확인" /></br>
+        <p id="CheckText" style="color:red; height:50"></p>
+        </br><br/>
+        <input type="submit" style="font-size:18px; width:350px; height:60px" class="btn btn-warning" disabled="disabled" id="signup_submit" value="회원가입" />
+      </div><br/><br/>
+
     </article>
 
-    <script type="text/javascript">
+    <script>
       function check() {
-        var id = document.getElementById("id").value;
-        var password = document.getElementById("password").value;
-        var passwordCheck = document.getElementById("passwordCheck").value;
+        var id = $("#userId").val();
+        var password = $("#password").val();
+        var passwordCheck = $("#passwordCheck").val();
 
         if (password != passwordCheck) {
-          document.getElementById("CheckText").innerHTML = "비밀번호 불일치"
+          $("#CheckText").html("비밀번호 불일치")
+          $('#signup_submit').attr("disabled", 'disabled');
         } else {
-          document.getElementById("CheckText").innerHTML = "<font color=blue>비밀번호 일치</font>"
+          $('#CheckText').html("<font color=blue>비밀번호 일치</font>")
+          $('#signup_submit').removeAttr("disabled");
         }
-
       }
 
-        $('#signup_submit').click( function() {
-            if ($('#userId').val() == '' || $('#password').val() == '' || $('#passwordCheck').val() == '') {
-                alert('아이디 또는 비밀번호를 입력하세요.');
+
+      $('#signup_submit').click(function() {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{1,}))$/;
+        var id = $("#userId").val();
+
+        if ($('#userId').val() == '' || $('#password').val() == '' || $('#passwordCheck').val() == '') {
+          alert('아이디 또는 비밀번호를 입력하세요.');
+        } else if (id == '' || (re.test(id) == false)) {
+          alert("올바른 이메일 주소를 입력하세요");
+        } else {
+          $.ajax({
+            url: '/users/signUpOk',
+            dataType: 'json',
+            type: 'post',
+            data: {
+              'userId': $('#userId').val(),
+              'password': $('#password').val()
+            },
+            success: function(res) {
+              if (res['isOK'] == true) {
+                alert('회원가입이 완료되었습니다.');
+                window.close();
+              } else {
+                alert('아이디가 중복되었습니다. 다른아이디를 입력해주세요');
+              }
+            },
+            error: function(error) {
+              alert("Error!");
             }
-            else {
-                $.ajax({
-                    url: '/users/signUpOk',
-                    dataType: 'json',
-                    type: 'post',
-                    data: {'userId': $('#userId').val(), 'password': $('#password').val()},
-                    success: function (res) {
-                        if (res['isOK'] == true) {
-                            alert('회원가입되었습니다.');
-                            window.close();
-                        }
-                        else {
-                            alert('아이디 또는 비밀번호가 없습니다.');
-                        }
-                    },
-                    error: function (error) {
-                        alert("Error!");
-                    }
-                })
-            }
-        })
+          })
+        }
+      })
     </script>
   </section>
 

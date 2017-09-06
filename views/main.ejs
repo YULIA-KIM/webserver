@@ -2,298 +2,313 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 
-  <script language="javascript">
-      function popup_signup() {
-          window.open("signup", "회원가입",
-              'left=' + (screen.availWidth - 460) / 2 + ',top=' + (screen.availHeight - 550) / 2 + ', width=460px,height=550px');
-      }
-  </script>
+    <style>
+        @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+        @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+        @import url('https://fonts.googleapis.com/css?family=Amatic+SC|Baloo+Tammudu|Delius+Unicase|Griffy|Lobster|Pacifico');
+        @import url(//cdn.rawgit.com/hiun/NanumSquare/master/nanumsquare.css);
 
-  <style>
-    @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
-    @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
-    @import url('https://fonts.googleapis.com/css?family=Amatic+SC|Baloo+Tammudu|Delius+Unicase|Griffy|Lobster|Pacifico');
-    @import url(//cdn.rawgit.com/hiun/NanumSquare/master/nanumsquare.css);
-
-    #header {
-      /*font-family: 'Baloo Tammudu', cursive;
+        #header {
+            /*font-family: 'Baloo Tammudu', cursive;
       font-family: 'Lobster', cursive;
       font-family: 'Griffy', cursive;
       font-family: 'Pacifico', cursive;
       font-family: 'Amatic SC', cursive;
       font-family: 'Delius Unicase', cursive;*/
-      /*font-family: 'Jeju Gothic', sans-serif;*/
-      font-family: 'Amatic SC', cursive;
-      /*font-family: 'Baloo Tammudu', cursive;*/
-      height: 50px;
-      background: #fff;
-      box-shadow: 0 0 5px rgba(57, 70, 78, .2);
-      z-index: 100;
-      padding-top: 5px;
-    }
+            /*font-family: 'Jeju Gothic', sans-serif;*/
+            font-family: 'Amatic SC', cursive;
+            /*font-family: 'Baloo Tammudu', cursive;*/
+            height: 50px;
+            background: #fff;
+            box-shadow: 0 0 5px rgba(57, 70, 78, .2);
+            z-index: 100;
+            padding-top: 5px;
+        }
 
-    #header_btn {
-      font-family: 'Noto Sans KR', sans-serif;
-      vertical-align: middle;
-      float: right;
-      padding-top: 5px;
-      padding-right: 1%;
-    }
+        #header_btn {
+            font-family: 'Noto Sans KR', sans-serif;
+            vertical-align: middle;
+            float: right;
+            padding-top: 5px;
+            padding-right: 1%;
+        }
 
-    #sidebar {
-      font-family: 'Noto Sans KR', sans-serif;
-      padding: 0;
-      margin: 0;
-      width: 350px;
-      position: absolute;
-      top: 50px;
-      left: 0;
-      padding: 1%;
-      border-right: solid 1px #e9eced;
-      height: calc(100vh - 55px);
-      background: #fff;
-      display: flex;
-      flex-direction: column;
-      background-color: #eee;
-    }
+        #sidebar {
+            font-family: 'Noto Sans KR', sans-serif;
+            padding: 0;
+            margin: 0;
+            width: 350px;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            padding: 1%;
+            border-right: solid 1px #e9eced;
+            height: calc(100vh - 55px);
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            background-color: #eee;
+        }
 
-    #content {
-      padding-left: 360px;
-      padding-right: 2%;
-      margin: 1%;
-      font-family: 'Nanum Square';
-    }
+        #content {
+            padding-left: 360px;
+            padding-right: 2%;
+            margin: 1%;
+            font-family: 'Nanum Square';
+        }
 
-    table,
-    td {
-      padding: 5px;
-    }
+        table,
+        td {
+            padding: 5px;
+        }
 
-    hr {
-      margin-right: 2%;
-      margin-left: 2%;
-    }
+        hr {
+            margin-right: 2%;
+            margin-left: 2%;
+        }
 
-    ul {
-      /*파비콘으로 리스트 표시하기?*/
-      list-style-image: url('http://www.google.com/s2/favicons?domain_url=http://www.naver.com');
-    }
-  </style>
+        ul {
+            /*파비콘으로 리스트 표시하기?*/
+            list-style-image: url('http://www.google.com/s2/favicons?domain_url=http://www.naver.com');
+        }
+    </style>
 
-  <title>SCRAMBLE</title>
-  <script>
-      $(document).ready(function() {
-          var offset = $('.menu').offset();
-          $(window).scroll(function() {
-              if ($(document).scrollTop() > offset.top) {
-                  $('.menu').addClass('fixed');
-              } else {
-                  $('.menu').removeClass('fixed');
-              }
-          });
-      });
-  </script>
+    <title>SCRAMBLE</title>
 </head>
 
 <body>
-<div id="header">
-  <div id="header_logo" style="font-weight:bold; letter-spacing: 10px ;  margin-top:-5px; font-size:35px; height:0px ">
-    <img style="margin-left:50px; margin-top:-5px" src="https://image.flaticon.com/icons/svg/540/540209.svg" width="40px" height="40px"> SCRAMBLE
-  </div>
+    <div id="header">
+        <div id="header_logo" style="font-weight:bold; letter-spacing: 10px ;  margin-top:-5px; font-size:35px; height:0px ">
+            <img style="margin-left:50px; margin-top:-5px" src="https://image.flaticon.com/icons/svg/540/540209.svg" width="40px" height="40px">            SCRAMBLE
+        </div>
 
-  <div id="header_btn">
-    <div id="login_form" class="form-inline">
-      <div class="form-group">
-        <input type="email" class="form-control" id="userId" placeholder="이메일을 입력해주세요">&nbsp;&nbsp;
-      </div>
-      <div class="form-group">
-        <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요">&nbsp;&nbsp;
-      </div>
-      <input type="submit" id="login_submit" class="btn btn-warning" style="width:90px;" value="로그인"/> &nbsp;&nbsp;
-      <button class="btn" style="width:90px;" onclick="popup_signup();">회원가입</button></br>
+        <div id="header_btn">
+            <div id="login_form" class="form-inline">
+                <div class="form-group">
+                    <input type="email" class="form-control" id="userId" placeholder="이메일을 입력해주세요">&nbsp;&nbsp;
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요">&nbsp;&nbsp;
+                </div>
+                <input type="submit" id="login_submit" class="btn btn-warning" style="width:90px;" value="로그인" /> &nbsp;&nbsp;
+                <button class="btn" style="width:90px;" onclick="popup_signup();">회원가입</button></br>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-<div id="" style="-webkit-overflow-scrolling: touch;">
-  <form action id="sidebar">
-    <table border="0" class="text-center">
-      <tr>
-        <td style="width:250px; line-height:1.0em "><input type="text" size="8" id="name" class="form-control" placeholder="웹페이지 이름을 입력하세요." /> </br>
-          <input type="text" id="address" class="form-control" placeholder="웹페이지 주소를 입력하세요." /></td>
-        <td style="width:70px" rowspan="2" padding=5px> <input type="button" class="btn btn-success" style="height:90px" id="address_regist" value="등록"/></td>
-      </tr>
-    </table>
-    <hr style="size:9px" />
-    <div id="name_list">
-
+    <div id="" style="-webkit-overflow-scrolling: touch;">
+        <form action id="sidebar">
+            <table border="0" class="text-center">
+                <tr>
+                    <td style="width:250px; line-height:1.0em "><input type="text" size="8" id="name" class="form-control" placeholder="웹페이지 이름을 입력하세요." /> </br>
+                        <input type="text" id="address" class="form-control" placeholder="웹페이지 주소를 입력하세요." /></td>
+                    <td style="width:70px" rowspan="2" padding=5px> <input type="button" class="btn btn-success" style="height:90px" id="address_regist" value="등록" /></td>
+                </tr>
+            </table>
+            <hr style="size:9px" />
+            <div id="name_list">
+            </div>
+        </form>
+        <div id="content" style="height: calc(100vh - 95px); overflow: auto;">
+            <!-- feed추가되는부분 -->
+            <div style="text-align:center">
+                <input type="button" class="btn-default" id="more_feed" style="" value="더보기" />
+            </div>
+        </div>
     </div>
-  </form>
-  <div id="content" style="height: calc(100vh - 95px); overflow: auto;">
-    <form id="1" style="border:1; height:200px;">
-      <img HSPACE=20 height="180px" src="http://img.youtube.com/vi/qGVKh-n-ADI/1.jpg" align="left">
-      <div style="">
-        <div style="font-size:20px">
-            <%=title%>
-          </br>
-        </div>
-        <div>
-            <%=content%>
-          </br>
-        </div>
-      </div>
-    </form>
 
-    <form id="2" style="border:1; height:200px;">
-      <img HSPACE=20 height="180px" src="http://img.youtube.com/vi/qGVKh-n-ADI/1.jpg" align="left">
-      <div style="">
-        <div style="font-size:20px">
-            <%=title%>
-          </br>
-        </div>
-        <div>
-            <%=content%>
-          </br>
-        </div>
-      </div>
-    </form>
+    <script>
+        var token = '';
 
-    <div style="text-align:center">
-      <input type="button" class="btn-default" id="more_feed" style="" value="더보기" />
-    </div>
-  </div>
-</div>
+        $(document).ready(function () {
+            var offset = $('.menu').offset();
+            $(window).scroll(function () {
+                if ($(document).scrollTop() > offset.top) {
+                    $('.menu').addClass('fixed');
+                } else {
+                    $('.menu').removeClass('fixed');
+                }
+            });
+        });
 
-<script>
-    $(document).ready(function(res) {
-        $("#close").click(function() {
-            $("#popup").hide();
+        $(document).ready(function (res) {
+            $("#close").click(function () {
+                $("#popup").hide();
+            })
         })
-    })
 
-    $("#login_submit").click(function() {
-        $.ajax({
-            url: '/users/loginOk',
-            dataType: 'json',
-            type: 'post',
-            data: {'userId':$("#userId").val(),'password':$("#password").val()},
-            success: function (res) {
-                if (res['isOK'] == true) {
-                    alert('로그인되었습니다.');
-                    $("#login_form").remove();
-                    $("#header_btn").append('<input type="submit" id="login_submit" class="btn btn-warning" style="width:90px;" value="로그아웃"/>  &nbsp;&nbsp;');
+        function popup_signup() {
+            window.open("signup", "회원가입",
+                'left=' + (screen.availWidth - 460) / 2 + ',top=' + (screen.availHeight - 550) / 2 + ', width=460px,height=550px');
+        }
+
+        $("#login_submit").click(function () {
+            $.ajax({
+                url: '/users/loginOk',
+                dataType: 'json',
+                type: 'post',
+                data: { 'userId': $("#userId").val(), 'password': $("#password").val() },
+                success: function (res) {
+                    if (res['isOK'] == true) {
+                        alert('로그인되었습니다.');
+                        $("#login_form").remove();
+                        $("#header_btn").append('<input type="submit" id="login_submit" class="btn btn-warning" style="width:90px;" value="로그아웃"/>  &nbsp;&nbsp;');
+                        token = res['token'];
+                        insert_names();
+                    }
+                    else {
+                        alert('아이디 또는 비밀번호가 없습니다.');
+                    }
+                },
+                error: function (error) {
+                    alert("Error!");
                 }
-                else{
-                    alert('아이디 또는 비밀번호가 없습니다.');
-                }
-            },
-            error : function(error) {
-                alert("Error!");
+            })
+        })
+
+        $("#address_regist").click(function () {
+            if (token == '') {
+                alert('로그인해주세요.');
             }
-        })
-    })
-
-    $("#address_regist").click(function() {
-        var url_id = '';
-        $.ajax({
-            url: '/urls',
-            dataType: 'json',
-            type: 'POST',
-            data: {
-                'name': $("#name").val(),
-                'address': $("#address").val()
-            },
-            success: function(res) {
-                if (res['isOK'] == true) {
-                    alert("등록되었습니다.");
-                    insert_names();
-                }
-                else {
-                    alert("등록에 실패했습니다.");
-                }
-            },
-            error : function(error) {
-                alert("Error!");
-            }
-        })
-    })
-
-    var insert_names = function () {
-        $.ajax({
-            url: '/urls/all',
-            dataType: 'json',
-            type: 'POST',
-            success: function(res) {
-                $("#name_list").remove();
-                for (var i = 0; i < res.length; i++) {
-                    var name = res[i].name;
-                    var url_id = res[i].urlId;
-                    $("#name_list").append('<p><ul id="' + i + '" onclick="insert_feeds(' + url_id + ');">' + name + '</ul> <button id="' + i + '" onclick="delete_name(' + url_id + ',' + i + ');">삭제</button> </p>');
-                }
-            },
-            error : function(error) {
-                alert("name불러오기 실패");
-            }
-        })
-    }
-
-    var insert_feeds = function (url_id) {
-        $.ajax({
-            url: '/urls/'+url_id,
-            dataType: 'json',
-            type: 'POST',
-            success: function(res) {
-                $(res).each(function() {
-                    var title = '';
-                    var content = '';
-                    var image = '';
-                    var url = '';
-                    for (var i = 0; i < res.length; i++) {
-                        title = $(this).find('title').text;
-                        content = $(this).find('content').text;
-                        image = $(this).find('image').text();
-                        url = $(this).find('urlId').text();
-                        $('#content').append('<form id="feed_' + i + '" onclick="connect_url(' + url + ',' + i +');">' + '<p>' + title + '<p>' + '<p>' + image + content + '<p>' + '</from>');
-                        $("#" + i).click(function() {
-                            $(location).attr('href', url);
-                        })
+            else {
+                var url_id = '';
+                $.ajax({
+                    url: '/urls',
+                    dataType: 'json',
+                    type: 'POST',
+                    data: {
+                        'name': $("#name").val(),
+                        'address': $("#address").val(),
+                        'token': token
+                    },
+                    success: function (res) {
+                        var url_id = res.urls[0].Id;
+                        var url_address = res.urls[0].address;
+                        if (res['isOK'] == true) {
+                            alert("등록되었습니다.");
+                            insert_names();
+                            init_feeds(url_id, url_address);
+                        }
+                        else {
+                            alert("등록에 실패했습니다.");
+                        }
+                    },
+                    error: function (error) {
+                        alert("Error!");
                     }
                 })
-            },
-            error : function(error) {
-                alert("Error!");
             }
         })
-    }
 
-    var delete_name = function (url_id, i) {
-        $.ajax({
-            url: '/urls/delete',
-            dataType: 'json',
-            type: 'POST',
-            data:{'userId':url_id},
-            success: function(res) {
-                if (res['isOK'] == true) {
-                    $("#" + i).remove();
-                }
-            },
-            error : function(error) {
-                alert("Error!");
+        var insert_names = function () {
+            if (token == '') {
+                alert('로그인해주세요.');
             }
-        })
-    }
+            else {
+                $.ajax({
+                    url: '/urls/all',
+                    dataType: 'json',
+                    type: 'POST',
+                    data: { 'token': token },
+                    success: function (res) {
+                        var name;
+                        var url_id;
+                        $("#name_list").empty();
+                        for (var i = 0; i < res.length; i++) {
+                            name = res[i].name;
+                            url_id = res[i].Id;
+                            $("#name_list").append('<ul id="' + i + '"onclick="read_feeds(' + url_id + ');">' + name + '<input type="image" style="margin-left:275px;width:13px;height:13px" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMS4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQ0OS45OTggNDQ5Ljk5OCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDQ5Ljk5OCA0NDkuOTk4OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjMycHgiIGhlaWdodD0iMzJweCI+CjxnPgoJPGc+CgkJPHBvbHlnb24gcG9pbnRzPSI0NDkuOTc0LDM0Ljg1NSA0MTUuMTkxLDAgMjI1LjAwNywxOTAuMTg0IDM0LjgzOSwwIDAuMDI0LDM0LjgzOSAxOTAuMTkyLDIyNC45OTkgICAgIDAuMDI0LDQxNS4xNTkgMzQuODM5LDQ0OS45OTggMjI1LjAwNywyNTkuNzk3IDQxNS4xOTEsNDQ5Ljk5OCA0NDkuOTc0LDQxNS4xNDMgMjU5LjgzLDIyNC45OTkgICAiIGZpbGw9IiNEODAwMjciLz4KCTwvZz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" onclick="delete_name(' + url_id + ',' + i + ')" value="삭제"></ul>');
+                        }
+                    },
+                    error: function (error) {
+                        alert("name불러오기 실패");
+                    }
+                })
+            }
+        }
 
-    var connect_url = function (url, i) {
-        $("#feed_" + i).click(function() {
-            $(location).attr('href', url);
-        })
-    }
+        var init_feeds = function (url_id, url_address) {
+            console.log(url_address);
+            if (token == '') {
+                alert('로그인해주세요.');
+            }
+            else {
+                $.ajax({
+                    url: '/feeds/init',
+                    dataType: 'json',
+                    type: 'POST',
+                    data: { 'token': token, 'urlId': url_id, 'address': url_address },
+                    success: function (res) {
+                        //res 처리
+                    },
+                    error: function (error) {
+                        alert("피드 init  실패");
+                    }
+                })
+            }
+        }
 
-</script>
+        var read_feeds = function (url_id) {
+            if (token == '') {
+                alert('로그인해주세요.');
+            }
+            else {
+                $.ajax({
+                    url: '/feeds',
+                    dataType: 'json',
+                    type: 'POST',
+                    data: { 'token': token, 'urlId': url_id },
+                    success: function (res) {
+                        console.log(res);
+                        var title = '';
+                        var content = '';
+                        var image = '';
+                        var url = '';
+                        $("#content").empty();
+                        for (var i = res.length - 1; i >= 0; i--) {
+                            title = res[i].title;
+                            content = res[i].content;
+                            // image = res[i].image;
+                            url = res[i].link;
+                            console.log(url);
+                            $('#content').append('<div id="feed_' + i + '" > <a style="font-weight:bold; font-size:22px;" href="' + url + '">' + title + '</a> <p>' + content + '</p> </div>');
+                        }
+                    }
+                })
+            }
+        }
+
+        // var delete_name = function (url_id, i) {
+        //     console.log(usl_id);
+        //     if (token == '') {
+        //         alert('로그인해주세요.');
+        //     }
+        //     else {
+        //         $.ajax({
+        //             url: '/urls/delete',
+        //             dataType: 'json',
+        //             type: 'POST',
+        //             data: { 'userId': url_id, 'token': token },
+        //             success: function (res) {
+        //                 if (res['isOK'] == true) {
+        //                     // insert_names();
+        //                     console.log(res);
+        //                 }
+        //             },
+        //             error: function (error) {
+        //                 alert("name 삭제 실패");
+        //             }
+        //         })
+        //     }
+        // }
+
+        
+
+    </script>
 
 </body>
 

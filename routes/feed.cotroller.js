@@ -146,19 +146,30 @@ exports.init = function (req, res) {
 
         model.Feed.bulkCreate(feeds)
             .then(function () {
-                res.status(200).send();
+                res.status(200).send({ isOK : true });
             })
     });
 };
 
-exports.read = function (req, res) {
-    const urlId = parseInt(req.params.urlId);
+// exports.read = function (req, res) {
+//     const urlId = parseInt(req.params.urlId);
 
-    model.Feed.findAll({
-        where: {
-            urlId: urlId
-        }
-    }).then(function (feeds) {
-        res.json(feeds);
-    })
+//     model.Feed.findAll({
+//         where: {
+//             urlId: urlId
+//         }
+//     }).then(function (feeds) {
+//         res.json(feeds);
+//     })
+// };
+exports.read = function (req, res) {
+  const urlId = req.body.urlId;
+
+  model.Feed.findAll({
+      where: {
+          urlId: urlId
+      }
+  }).then(function (feeds) {
+      res.json(feeds);
+  })
 };

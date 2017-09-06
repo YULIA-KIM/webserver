@@ -38,7 +38,7 @@ app.get('/signup', function(req, res) {
 });
 
 app.get('/main', function(req, res) {
-    res.render('main', {url_name:'네이버', title:'title입니다.', content:'content입니다.'});
+    res.render('main');
 });
 
 // catch 404 and forward to error handler
