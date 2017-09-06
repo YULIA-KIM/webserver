@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize(
-    'pingpong', 'root', 'root',
+    'pingpong', 'root', '1017',
     {
         'host': 'localhost', // 데이터베이스 호스트
         'dialect': 'mysql' // 사용할 데이터베이스 종류
@@ -16,7 +16,6 @@ const Url = sequelize.define('url', {
         address: Sequelize.STRING,
         name: Sequelize.STRING,
         userId: Sequelize.STRING,
-        feed: Sequelize.STRING,
         state: {
             type: Sequelize.INTEGER,
             defaultValue: 0

@@ -10,4 +10,6 @@ router.put('/update', controller.update);
 
 router.delete('/delete/:Id', controller.delete);
 
+router.put('/state/:Id', controller.ischecked);
+
 module.exports = router;
