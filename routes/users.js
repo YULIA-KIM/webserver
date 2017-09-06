@@ -1,25 +1,14 @@
-var model = require('../models/Model');
-var express = require('express');
-var jwt = require('jsonwebtoken');
-var SECRET = 'AdeFESddfTg765JhhgIu';
-var EXPIRES = 20;
-var router = express.Router();
+const model = require('../models/Model');
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const SECRET = 'AdeFESddfTg765JhhgIu';
+const EXPIRES = 3 * 60 * 60;
+const router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
-
-
-//로그인 창
-router.get('/login', function(req, res, next) {
-  res.render('login');
-});
-
-//로그인 완료창
+//로그인
 router.post('/loginOk', function(req, res, next) {
-    var password = req.body.password.toString();
-    var userId = req.body.userId.toString();
+    let password = req.body.password.toString();
+    let userId = req.body.userId.toString();
 
   const bverifyUser = (userId, password) => {
      model.User.findOne({
@@ -73,19 +62,11 @@ router.post('/loginOk', function(req, res, next) {
         });
   }
 
-
-
-//회원가입 창
-router.get('/signUp/:success', function(req, res, next) {
-  var test = {"success":req.params.success}
-  res.render('signUp',test);
-});
-
-//회원가입 완료창
+//회원가입
 router.post('/signUpOk',function(req, res, next) {
   //res.send('this router is working');
- var password = req.body.password.toString();
- var userId = req.body.userId.toString();
+ let password = req.body.password.toString();
+ let userId = req.body.userId.toString();
 
      model.User.findOne({
        where: {userId: userId}

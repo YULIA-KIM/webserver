@@ -1,6 +1,6 @@
-var model = require('../models/Model');
-var reader = require('feed-read');
-var async = require('async');
+const model = require('../models/Model');
+const reader = require('feed-read');
+const async = require('async');
 
 exports.parse = function (){
 
@@ -113,9 +113,9 @@ exports.parse = function (){
 
 
 exports.delete = function (req, res) {
-    const start = parseInt(req.params.start, 10);
-    const end = parseInt(req.params.end, 10);
-    const destroyIndex = [];
+    let start = parseInt(req.params.start, 10);
+    let end = parseInt(req.params.end, 10);
+    let destroyIndex = [];
     for(let i = start; i <= end; i++){
         destroyIndex.push(i);
     }
@@ -129,9 +129,9 @@ exports.delete = function (req, res) {
 };
 
 exports.init = function (req, res) {
-    const address = req.body.address;
-    const urlId = req.body.urlId;
-    const feeds = [];
+    let address = req.body.address;
+    let urlId = req.body.urlId;
+    let feeds = [];
 
     reader(address, function (err, responses) {
         for(let i = responses.length-1; -1 < i; i--){  //for(let i = 0; i < responses.length; i++){
@@ -163,7 +163,7 @@ exports.init = function (req, res) {
 //     })
 // };
 exports.read = function (req, res) {
-  const urlId = req.body.urlId;
+    let urlId = req.body.urlId;
 
   model.Feed.findAll({
       where: {

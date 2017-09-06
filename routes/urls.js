@@ -1,10 +1,10 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const controller = require('./url.controller');
 
 router.post('/', controller.create);
 
-router.post('/all', controller.readAllUrls);
+router.get('/all', controller.readAllUrls);
 
 router.put('/update', controller.update);
 

@@ -12,6 +12,7 @@ var SECRET = 'AdeFESddfTg765JhhgIu';
 var urls = require('./routes/urls');
 var feeds = require('./routes/feed');
 var app = express();
+var jwt = require('jsonwebtoken');
 
 //html 코드 보기 쉽게 만들어줌
 app.locals.pretty = true;
@@ -27,6 +28,41 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.all('*', function (req, res, next) {
+    if(req.url !== '/users/signUpOk' && req.url !== '/users/loginOk'){
+        const token = req.headers['x-access-token'] || req.params.token;
+
+        console.log(token);
+
+        // token does not exist
+        if(!token) {
+            return res.status(403).json({
+                success: false,
+                message: 'not logged in'
+            })
+        }
+
+        var decoded = jwt.verify(token, SECRET);
+        console.log(decoded);
+
+        models.User.findOne({
+            where: {
+                userId: decoded.userID //어떻게 받아오는지 확인해야한다
+            }
+        }).then(function(user){
+            console.log(user);
+            if(!user){
+                res.status(404).json({
+                    success: false,
+                    message: 'not found'
+                })
+            }else
+                next();
+        });
+    }else
+        next();
+});
 
 app.use('/', index);  //이걸 이렇게 안쓰면 routes/index.js파일에 있는 라우터들이 적용이 안된다. localhost:3000/ 로 불리면 index.js에 있는 라우터가 연결되는 거야 indew는 위에서 변수로 연결해뒀어
 app.use('/users', users);
