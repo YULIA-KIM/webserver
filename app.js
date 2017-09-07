@@ -52,13 +52,12 @@ app.all('*', function (req, res, next) {
             }
         }).then(function(user){
             console.log(user);
-            if(!user){
-                res.status(404).json({
-                    success: false,
-                    message: 'not found'
-                })
-            }else
-                next();
+            next();
+        }).catch(function(err){
+            res.status(404).json({
+                success: false,
+                message: 'not found'
+            });
         });
     }else
         next();
