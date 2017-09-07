@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+        crossorigin="anonymous">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 
@@ -77,6 +78,12 @@
             list-style-image: url('http://www.google.com/s2/favicons?domain_url=http://www.naver.com');
         }
     </style>
+    <!-- 
+    <script>
+        var didScroll = false;
+
+        $(window).scroll(function(){ didScroll = true; });
+    </script> -->
 
     <title>SCRAMBLE</title>
 </head>
@@ -104,36 +111,28 @@
         <form action id="sidebar">
             <table border="0" class="text-center">
                 <tr>
-                    <td style="width:250px; line-height:1.0em "><input type="text" size="8" id="name" class="form-control" placeholder="웹페이지 이름을 입력하세요." /> </br>
-                        <input type="text" id="address" class="form-control" placeholder="웹페이지 주소를 입력하세요." /></td>
-                    <td style="width:70px" rowspan="2" padding=5px> <input type="button" class="btn btn-success" style="height:90px" id="address_regist" value="등록" /></td>
+                    <td style="width:250px; line-height:1.0em ">
+                        <input type="text" size="8" id="name" class="form-control" placeholder="웹페이지 이름을 입력하세요." /> </br>
+                        <input type="text" id="address" class="form-control" placeholder="웹페이지 주소를 입력하세요." />
+                    </td>
+                    <td style="width:70px" rowspan="2" padding=5px>
+                        <input type="button" class="btn btn-success" style="height:90px" id="address_regist" value="등록" />
+                    </td>
                 </tr>
             </table>
             <hr style="size:9px" />
             <div id="name_list">
             </div>
         </form>
-        <div id="content" style="height: calc(100vh - 95px); overflow: auto;">
+        <div id="content">
             <!-- feed추가되는부분 -->
-            <div style="text-align:center">
-                <input type="button" class="btn-default" id="more_feed" style="" value="더보기" />
-            </div>
+            안녕하세요! 메인페이지입니다!!
         </div>
     </div>
 
     <script>
         var token = '';
-
-        $(document).ready(function () {
-            var offset = $('.menu').offset();
-            $(window).scroll(function () {
-                if ($(document).scrollTop() > offset.top) {
-                    $('.menu').addClass('fixed');
-                } else {
-                    $('.menu').removeClass('fixed');
-                }
-            });
-        });
+        var userId = '';
 
         $(document).ready(function (res) {
             $("#close").click(function () {
@@ -147,18 +146,31 @@
         }
 
         $("#login_submit").click(function () {
+            userId = $("#userId").val();
             $.ajax({
                 url: '/users/loginOk',
                 dataType: 'json',
-                type: 'post',
-                data: { 'userId': $("#userId").val(), 'password': $("#password").val() },
+                type: 'POST',
+                data: { 'userId': userId, 'password': $("#password").val() },
                 success: function (res) {
                     if (res['isOK'] == true) {
                         alert('로그인되었습니다.');
                         $("#login_form").remove();
                         $("#header_btn").append('<input type="submit" id="login_submit" class="btn btn-warning" style="width:90px;" value="로그아웃"/>  &nbsp;&nbsp;');
                         token = res['token'];
-                        insert_names();
+                        let url_name = '';
+                        let url_address = '';
+                        let url_id = '';
+                        if (res.urlData != '') {
+                            for (var i = 0; i < res.urlData.length; i++) {
+                                url_id = res.urlData[i].Id;
+                                url_name = res.urlData[i].name;
+                                url_address = res.urlData[i].address;
+                                console.log(url_name);
+                                $("#name_list").append('<ul id="' + i + '" onclick="read_feeds(' + url_id + ');">' + url_name + '</ul>');
+                                $("#name_list").append('<input type="button" id="delete_' + i + '" onclick="delete_name(' + url_id + ',' + i + ');" value="삭제">');
+                            }
+                        }
                     }
                     else {
                         alert('아이디 또는 비밀번호가 없습니다.');
@@ -175,64 +187,49 @@
                 alert('로그인해주세요.');
             }
             else {
-                var url_id = '';
-                $.ajax({
-                    url: '/urls',
-                    dataType: 'json',
-                    type: 'POST',
-                    data: {
-                        'name': $("#name").val(),
-                        'address': $("#address").val(),
-                        'token': token
-                    },
-                    success: function (res) {
-                        var url_id = res.urls[0].Id;
-                        var url_address = res.urls[0].address;
-                        if (res['isOK'] == true) {
-                            alert("등록되었습니다.");
-                            insert_names();
-                            init_feeds(url_id, url_address);
-                        }
-                        else {
-                            alert("등록에 실패했습니다.");
-                        }
-                    },
-                    error: function (error) {
-                        alert("Error!");
-                    }
-                })
+                let name = $("#name").val();
+                let address = $("#address").val();
+                $('#name').val('');
+                $("#address").val('');
+                insert_names(name, address);
             }
         })
 
-        var insert_names = function () {
+        var insert_names = function (name, address) {
             if (token == '') {
                 alert('로그인해주세요.');
             }
             else {
                 $.ajax({
-                    url: '/urls/all',
+                    url: '/urls',
                     dataType: 'json',
                     type: 'POST',
-                    data: { 'token': token },
+                    headers: { 'x-access-token': token },
+                    data: { 'name': name, 'address': address, 'userId': userId },
                     success: function (res) {
-                        var name;
-                        var url_id;
-                        $("#name_list").empty();
-                        for (var i = 0; i < res.length; i++) {
-                            name = res[i].name;
-                            url_id = res[i].Id;
-                            $("#name_list").append('<ul id="' + i + '"onclick="read_feeds(' + url_id + ');">' + name + '<input type="image" style="margin-left:275px;width:13px;height:13px" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMS4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQ0OS45OTggNDQ5Ljk5OCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDQ5Ljk5OCA0NDkuOTk4OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjMycHgiIGhlaWdodD0iMzJweCI+CjxnPgoJPGc+CgkJPHBvbHlnb24gcG9pbnRzPSI0NDkuOTc0LDM0Ljg1NSA0MTUuMTkxLDAgMjI1LjAwNywxOTAuMTg0IDM0LjgzOSwwIDAuMDI0LDM0LjgzOSAxOTAuMTkyLDIyNC45OTkgICAgIDAuMDI0LDQxNS4xNTkgMzQuODM5LDQ0OS45OTggMjI1LjAwNywyNTkuNzk3IDQxNS4xOTEsNDQ5Ljk5OCA0NDkuOTc0LDQxNS4xNDMgMjU5LjgzLDIyNC45OTkgICAiIGZpbGw9IiNEODAwMjciLz4KCTwvZz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" onclick="delete_name(' + url_id + ',' + i + ')" value="삭제"></ul>');
+                        if (res['isOK'] == true) {
+                            $("#name_list").empty();
+                            let url_name = '';
+                            let url_address = '';
+                            let url_id = '';
+                            for (let i = 0; i < res.urls.length; i++) {
+                                url_name = res.urls[i].name;
+                                url_address = res.urls[i].address;
+                                url_id = res.urls[i].Id;
+                                $("#name_list").append('<ul id="' + i + '" onclick="read_feeds(' + url_id + ');">' + url_name + '</ul>');
+                                $("#name_list").append('<input type="button" id="delete_' + i + '" onclick="delete_name(' + url_id + ',' + i + ');" value="삭제">');
+                            }
+                            init_feeds(url_id, url_address);
                         }
                     },
                     error: function (error) {
-                        alert("name불러오기 실패");
+                        alert("웹페이지 이름을 불러올 수 없습니다.");
                     }
                 })
             }
         }
 
         var init_feeds = function (url_id, url_address) {
-            console.log(url_address);
             if (token == '') {
                 alert('로그인해주세요.');
             }
@@ -241,16 +238,23 @@
                     url: '/feeds/init',
                     dataType: 'json',
                     type: 'POST',
-                    data: { 'token': token, 'urlId': url_id, 'address': url_address },
+                    headers: { 'x-access-token': token },
+                    data: { 'urlId': url_id, 'address': url_address },
                     success: function (res) {
-                        //res 처리
+                        if (res['isOK'] == true) {
+                            alert("등록되었습니다.");
+                        }
+                        else {
+                            alert("등록에 실패했습니다.");
+                        }
                     },
                     error: function (error) {
-                        alert("피드 init  실패");
+                        alert("첫 피드를 불러올 수 없습니다.");
                     }
                 })
             }
         }
+
 
         var read_feeds = function (url_id) {
             if (token == '') {
@@ -258,56 +262,73 @@
             }
             else {
                 $.ajax({
-                    url: '/feeds',
+                    url: '/feeds/' + url_id,
                     dataType: 'json',
-                    type: 'POST',
-                    data: { 'token': token, 'urlId': url_id },
+                    type: 'GET',
+                    headers: { 'x-access-token': token },
                     success: function (res) {
-                        console.log(res);
-                        var title = '';
-                        var content = '';
-                        var image = '';
-                        var url = '';
                         $("#content").empty();
-                        for (var i = res.length - 1; i >= 0; i--) {
-                            title = res[i].title;
-                            content = res[i].content;
-                            // image = res[i].image;
-                            url = res[i].link;
-                            console.log(url);
-                            $('#content').append('<div id="feed_' + i + '" > <a style="font-weight:bold; font-size:22px;" href="' + url + '">' + title + '</a> <p>' + content + '</p> </div>');
+                        var i = 0;
+                        for (i = res.length - 1; i >= 0; i--) {
+                            var title = res[i].title;
+                            var content = res[i].content;
+                            var url = res[i].link;
+                            $("#content").append('<div id="feed_' + i + '" > <a style="font-weight:bold; font-size:22px;" href="' + url + '">' + title + '</a> <p>' + content + '</p> </div>');
                         }
+                        // if (didScroll == true){
+                        //     alert('스크롤 끝 지점입니다.');
+                        // }
+                        // if (i > 0) {
+                        //     $("#content").append('<input type="button" onclick="more_feeds(' + res + ',' + i + ');" value="더보기"/>');
+                        // }
                     }
                 })
             }
         }
 
-        // var delete_name = function (url_id, i) {
-        //     console.log(usl_id);
-        //     if (token == '') {
-        //         alert('로그인해주세요.');
-        //     }
-        //     else {
-        //         $.ajax({
-        //             url: '/urls/delete',
-        //             dataType: 'json',
-        //             type: 'POST',
-        //             data: { 'userId': url_id, 'token': token },
-        //             success: function (res) {
-        //                 if (res['isOK'] == true) {
-        //                     // insert_names();
-        //                     console.log(res);
-        //                 }
-        //             },
-        //             error: function (error) {
-        //                 alert("name 삭제 실패");
+        // var more_feeds = function (res, i) {
+        //     while(true){
+        //         var j = 0;
+        //         for (j = i - 1; j > i - 10; i--){
+        //             var title = res[i].title;
+        //             var content = res[i].content;
+        //             var url = res[i].link;
+        //             $("#content").append('<div id="feed_' + j + '" > <a style="font-weight:bold; font-size:22px;" href="' + url + '">' + title + '</a> <p>' + content + '</p> </div>');
+
+        //             if (j == 0){
+        //                 break;
         //             }
-        //         })
+        //         }
+        //         if (j > 0) {
+        //             $("#content").append('<input type="button" onclick="more_feeds(' + res + ',' + j + ');" value="더보기"/>');
+        //         }
+        //         else {
+        //             break;
+        //         }
         //     }
         // }
 
-        
-
+        var delete_name = function (url_id, i) {
+            if (token == '') {
+                alert('로그인해주세요.');
+            }
+            else {
+                $.ajax({
+                    url: '/urls/delete/' + url_id,
+                    dataType: 'json',
+                    type: 'DELETE',
+                    headers: { 'x-access-token': token },
+                    success: function (res) {
+                        $("#" + i).remove();
+                        $("#delete_" + i).remove();
+                        $("#content").empty();
+                    },
+                    error: function (error) {
+                        alert("삭제할 수 없습니다.");
+                    }
+                })
+            }
+        }
     </script>
 
 </body>

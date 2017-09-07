@@ -3,46 +3,42 @@ const jwt = require('jsonwebtoken');
 
 exports.create = function(req, res){
     let userId = req.body.userId;
+    let address = req.body.address;
+    let name = req.body.name;
+
     model.User.findOne({
         where: {
             userId: userId
         }
     }).then(function (user) {
-        model.Url.create({
-            address : req.body.address,
-            name : req.body.name,
-            userId : user.Id,
-            feed : req.body.feed })
-            .then(function() {
-                model.Url.findAll()
-                    .then(function(urls) {
-                        res.status(201).send({ isOK : true , urls});
-                    })
-            });
+        if( address && name ){
+            model.Url.create({
+                address : address,
+                name : name,
+                userId : user.Id,
+                feed : req.body.feed })
+                .then(function() {
+                    model.Url.findAll()
+                        .then(function(urls) {
+                            res.status(201).send({ isOK : true , urls});
+                        })
+                });
+        }
     })
 };
 
-exports.readAllUrls = function (req, res) {
-    let token = req.body;
-    console.log(token);
-    model.Url.findAll()
-        .then(function(urls) {            
-            res.json(urls);
-        })
-};
 
 exports.delete = function (req, res){
     let Id = parseInt(req.params.Id, 10);
     if(!Id){
         return res.status(400).json({error: 'Incorrect Id'});
     }
-
     model.Url.destroy({
         where: {
             Id: Id
         }
     }).then(function () {
-        res.status(204).send( { isOK : true } );
+        res.status(204).json( { isOK : true } );
     })
 };
 

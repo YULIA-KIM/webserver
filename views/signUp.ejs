@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+    crossorigin="anonymous">
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
   <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
   <title>회원가입</title>
@@ -36,16 +37,20 @@
 <body>
   <section>
     <div id="header" style="">
-      <h2 style="text-align:center; font-weight:bold"><img style="margin-left:0px" src="https://image.flaticon.com/icons/svg/540/540209.svg" width="40px" height="40px">  SCRAMBLE </h2>
+      <h2 style="text-align:center; font-weight:bold"><img style="margin-left:0px" src="https://image.flaticon.com/icons/svg/540/540209.svg" width="40px" height="40px">        SCRAMBLE </h2>
     </div>
     <article id="signup">
       <div>
-        <input type="email" class="form-control" style="font-size:18px; width:350px; height:60px" name="userId" id="userId" placeholder="이메일" /></br>
-        <input type="password" class="form-control" style="font-size:18px; width:350px; height:60px" name="password" id="password" onblur="check()" placeholder="비밀번호" /></br>
-        <input type="password" class="form-control" style="font-size:18px; width:350px; height:60px" onkeyup="check()" id="passwordCheck" placeholder="비밀번호확인" /></br>
+        <input type="email" class="form-control" style="font-size:18px; width:350px; height:60px" name="userId" id="userId" placeholder="이메일"
+        /></br>
+        <input type="password" class="form-control" style="font-size:18px; width:350px; height:60px" name="password" id="password"
+          onblur="check()" placeholder="비밀번호" /></br>
+        <input type="password" class="form-control" style="font-size:18px; width:350px; height:60px" onkeyup="check()" id="passwordCheck"
+          placeholder="비밀번호확인" /></br>
         <p id="CheckText" style="color:red; height:50"></p>
         </br><br/>
-        <input type="submit" style="font-size:18px; width:350px; height:60px" class="btn btn-warning" disabled="disabled" id="signup_submit" value="회원가입" />
+        <input type="submit" style="font-size:18px; width:350px; height:60px" class="btn btn-warning" disabled="disabled" id="signup_submit"
+          value="회원가입" />
       </div><br/><br/>
 
     </article>
@@ -66,7 +71,7 @@
       }
 
 
-      $('#signup_submit').click(function() {
+      $('#signup_submit').click(function () {
         var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{1,}))$/;
         var id = $("#userId").val();
 
@@ -83,7 +88,7 @@
               'userId': $('#userId').val(),
               'password': $('#password').val()
             },
-            success: function(res) {
+            success: function (res) {
               if (res['isOK'] == true) {
                 alert('회원가입이 완료되었습니다.');
                 window.close();
@@ -91,7 +96,7 @@
                 alert('아이디가 중복되었습니다. 다른아이디를 입력해주세요');
               }
             },
-            error: function(error) {
+            error: function (error) {
               alert("Error!");
             }
           })

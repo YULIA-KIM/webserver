@@ -162,25 +162,15 @@ exports.init = function (req, res) {
     });
 };
 
-// exports.read = function (req, res) {
-//     const urlId = parseInt(req.params.urlId);
-
-//     model.Feed.findAll({
-//         where: {
-//             urlId: urlId
-//         }
-//     }).then(function (feeds) {
-//         res.json(feeds);
-//     })
-// };
 exports.read = function (req, res) {
-    let urlId = req.body.urlId;
+    let urlId = parseInt(req.params.urlId);
 
-  model.Feed.findAll({
-      where: {
-          urlId: urlId
-      }
-  }).then(function (feeds) {
-      res.json(feeds);
-  })
+    model.Feed.findAll({
+        where: {
+            urlId: urlId
+        }
+    }).then(function (feeds) {
+        res.json(feeds);
+    })
 };
+
