@@ -171,6 +171,9 @@ exports.read = function (req, res) {
     let urlId = req.body.urlId;
     let feedId = req.body.feedId;
 
+    console.log(feedId);
+    console.log(urlId);
+
     if( feedId ){ //아직 더보기로 요청되면 feed를 보낸다
       model.Feed.findAll({
         where: {
@@ -198,16 +201,4 @@ exports.read = function (req, res) {
       });
     }    
 };
-
-exports.validate = function(req, res) {
-  let address = req.body.address;
-
-  reader(address, function (err, responses) {
-    if(err){
-      res.status(400).send({ isOK : false });
-    }else{
-      res.status(400).send({ isOK : true });
-    }
-  });
-}
 

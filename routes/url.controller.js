@@ -1,5 +1,6 @@
 const model = require('../models/Model');
 const jwt = require('jsonwebtoken');
+const reader = require('feed-read');
 
 exports.create = function(req, res){
     let userId = req.body.userId;
@@ -45,7 +46,6 @@ exports.delete = function (req, res){
 exports.update = function (req, res) {
     let Id = parseInt(req.body.Id, 10);
     if(!Id){
-        console.log(Id);
         return res.status(400).json({error: 'Incorrect Id'});
     }
 
@@ -72,6 +72,8 @@ exports.update = function (req, res) {
             .catch(function (error) {
                 console.log(error)
             })
+    }).catch(function(err){
+        res.status(404).json({error: 'Not found'});
     })
 };
 
@@ -98,9 +100,25 @@ exports.ischecked = function (req, res) {
                 Id: Id
             }
         }).then(function () {
-            res.status(201).send()
+            res.status(201).send({ isOK: true });
         }).catch(function (error) {
-            console.log(error)
+            console.log(error);
         })
+    }).catch(function(err, res){
+        res.status(404).json({ isOK: false });
+        console.log("디비정보 찾기 실패");
     })
 };
+
+exports.validate = function(req, res) {
+    let address = req.body.address;
+  
+    reader(address, function (err, responses) {
+      if(err){
+        res.status(400).send({ isOK : false });
+      }
+    });
+
+    res.status(200).send({ isOK : true });
+
+  }

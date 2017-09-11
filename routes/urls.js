@@ -4,6 +4,8 @@ const controller = require('./url.controller');
 
 router.post('/', controller.create);
 
+router.post('/validateUrl', controller.validate);
+
 router.put('/update', controller.update);
 
 router.delete('/delete/:Id', controller.delete);

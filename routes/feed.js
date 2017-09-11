@@ -4,8 +4,6 @@ const controller = require('./feed.cotroller');
 
 router.get('/delete/:start/:end', controller.delete);
 
-router.post('/validateUrl', controller.validate);
-
 router.post('/', controller.read);
 
 router.post('/init', controller.init);

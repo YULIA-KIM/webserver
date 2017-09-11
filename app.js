@@ -30,7 +30,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.all('*', function (req, res, next) {
-    if(req.url !== '/users/signUpOk' && req.url !== '/users/loginOk' && req.url !== '/main' && req.url !== '/signup'){
+    if(req.url !== '/users/signUpOk' && req.url !== '/users/loginOk' && req.url !== '/main' && req.url !== '/signup' && req.url !== '/main?x=5&y=4'){
         const token = req.headers['x-access-token'] || req.params.token;
 
         console.log(token);
