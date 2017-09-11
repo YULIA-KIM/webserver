@@ -16,8 +16,8 @@ exports.create = function(req, res){
                 address : address,
                 name : name,
                 userId : user.Id,
-                feed : req.body.feed })
-                .then(function() {
+                feed : req.body.feed
+            }).then(function() {
                     model.Url.findAll()
                         .then(function(urls) {
                             res.status(201).send({ isOK : true , urls});

@@ -145,15 +145,20 @@ exports.init = function (req, res) {
     let feeds = [];
 
     reader(address, function (err, responses) {
+      if( err ){
+        console.log("주소 읽기 실패");
+        res.status(400).send({ isOK : false });
+      }else {
         for(let i = responses.length-1; -1 < i; i--){  //for(let i = 0; i < responses.length; i++){
-            var feed = {
-                urlId: urlId,
-                title: responses[i].title,
-                content: responses[i].content,
-                link: responses[i].link
-            };
-            feeds.push(feed);
-        };
+          var feed = {
+              urlId: urlId,
+              title: responses[i].title,
+              content: responses[i].content,
+              link: responses[i].link
+          };
+          feeds.push(feed);
+      };
+      }      
 
         model.Feed.bulkCreate(feeds)
             .then(function () {
@@ -163,14 +168,46 @@ exports.init = function (req, res) {
 };
 
 exports.read = function (req, res) {
-    let urlId = parseInt(req.params.urlId);
+    let urlId = req.body.urlId;
+    let feedId = req.body.feedId;
 
-    model.Feed.findAll({
+    if( feedId ){ //아직 더보기로 요청되면 feed를 보낸다
+      model.Feed.findAll({
+        where: {
+            urlId: urlId,
+            Id: {
+              $lte: feedId-1
+            }
+        },
+        attributes: ['Id', 'title', 'content'],
+        order: [['Id', 'DESC']],
+        limit: 10
+      }).then(function (feeds) {
+          res.json(feeds);
+      });
+    }else{ //처음에 rss 주소 누를때 보여줄 10개의 정보를 보낸다
+      model.Feed.findAll({
         where: {
             urlId: urlId
-        }
-    }).then(function (feeds) {
-        res.json(feeds);
-    })
+        },
+        attributes: ['Id', 'title', 'content'],
+        order: [['Id', 'DESC']],
+        limit: 10
+      }).then(function (feeds) {
+          res.json(feeds);
+      });
+    }    
 };
+
+exports.validate = function(req, res) {
+  let address = req.body.address;
+
+  reader(address, function (err, responses) {
+    if(err){
+      res.status(400).send({ isOK : false });
+    }else{
+      res.status(400).send({ isOK : true });
+    }
+  });
+}
 
