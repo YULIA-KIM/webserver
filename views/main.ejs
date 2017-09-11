@@ -2,83 +2,108 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
-        crossorigin="anonymous">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 
-    <style>
-        @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
-        @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
-        @import url('https://fonts.googleapis.com/css?family=Amatic+SC|Baloo+Tammudu|Delius+Unicase|Griffy|Lobster|Pacifico');
-        @import url(//cdn.rawgit.com/hiun/NanumSquare/master/nanumsquare.css);
+  <style>
+    @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+    @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+    @import url('https://fonts.googleapis.com/css?family=Amatic+SC|Baloo+Tammudu|Delius+Unicase|Griffy|Lobster|Pacifico');
+    @import url(//cdn.rawgit.com/hiun/NanumSquare/master/nanumsquare.css);
 
-        #header {
-            /*font-family: 'Baloo Tammudu', cursive;
-      font-family: 'Lobster', cursive;
-      font-family: 'Griffy', cursive;
-      font-family: 'Pacifico', cursive;
+    #header {
       font-family: 'Amatic SC', cursive;
-      font-family: 'Delius Unicase', cursive;*/
-            /*font-family: 'Jeju Gothic', sans-serif;*/
-            font-family: 'Amatic SC', cursive;
-            /*font-family: 'Baloo Tammudu', cursive;*/
-            height: 50px;
-            background: #fff;
-            box-shadow: 0 0 5px rgba(57, 70, 78, .2);
-            z-index: 100;
-            padding-top: 5px;
-        }
+      height: 50px;
+      width:100%;
+      position: fixed;
+      background: #fff;
+      box-shadow: 0 0 5px rgba(57, 70, 78, .2);
+      z-index: 999;
+      margin-top: -20px;
+    }
 
-        #header_btn {
-            font-family: 'Noto Sans KR', sans-serif;
-            vertical-align: middle;
-            float: right;
-            padding-top: 5px;
-            padding-right: 1%;
-        }
+    #header_btn {
+      font-family: 'Noto Sans KR', sans-serif;
+      vertical-align: middle;
+      float: right;
+      padding-top: 5px;
+      padding-right: 1%;
+    }
 
-        #sidebar {
-            font-family: 'Noto Sans KR', sans-serif;
-            padding: 0;
-            margin: 0;
-            width: 350px;
-            position: absolute;
-            top: 50px;
-            left: 0;
-            padding: 1%;
-            border-right: solid 1px #e9eced;
-            height: calc(100vh - 55px);
-            background: #fff;
-            display: flex;
-            flex-direction: column;
-            background-color: #eee;
-        }
+    #sidebar {
+      font-family: 'Noto Sans KR', sans-serif;
+      padding: 0;
+      margin: 0;
+      width: 350px;
+      position: fixed;
+      top: 50px;
+      left: 0;
+      padding: 1%;
+      border-right: solid 1px #e9eced;
+      height: calc(100vh - 55px);
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      background-color: #eee;
+    }
 
-        #content {
-            padding-left: 360px;
-            padding-right: 2%;
-            margin: 1%;
-            font-family: 'Nanum Square';
-        }
+    #content {
+      padding-top: 55px;
+      padding-left: 360px;
+      padding-right: 2%;
+      margin: 1%;
+      font-family: 'Nanum Square';
+    }
 
-        table,
-        td {
-            padding: 5px;
-        }
+    table,
+    td {
+      padding: 5px;
+    }
 
-        hr {
-            margin-right: 2%;
-            margin-left: 2%;
-        }
+    hr {
+      margin-right: 2%;
+      margin-left: 2%;
+    }
 
-        ul {
-            /*파비콘으로 리스트 표시하기?*/
-            list-style-image: url('http://www.google.com/s2/favicons?domain_url=http://www.naver.com');
-        }
-    </style>
-    <!-- 
+    ul {
+      list-style-type: none;
+      padding: 1;
+    }
+
+    li {
+      list-style-type: none;
+      padding-left: 1.3em;
+      line-height: 2em;
+    }
+
+    li:before {
+      font-family: FontAwesome;
+      content: "\f101";
+      /* FontAwesome Unicode */
+      display: inline-block;
+      left:15px;
+      width: 1.3em;
+    }
+
+    .x_btn{
+      font-family: FontAwesome;
+      content: "\f00d";
+      border:none;    /*---테두리 정의---*/
+      display:block;
+      color:red;
+      background-color: #eee;
+      cursor:pointer;
+      position:fixed;
+      margin-top:-35px;
+      left:275px;
+      width:40px;
+      height: 30px;
+    }
+  </style>
+    <!--
     <script>
         var didScroll = false;
 
@@ -89,24 +114,16 @@
 </head>
 
 <body>
-    <div id="header">
-        <div id="header_logo" style="font-weight:bold; letter-spacing: 10px ;  margin-top:-5px; font-size:35px; height:0px ">
-            <img style="margin-left:50px; margin-top:-5px" src="https://image.flaticon.com/icons/svg/540/540209.svg" width="40px" height="40px">            SCRAMBLE
+    <div style=""id="header">
+        <div id="header_logo" style="font-weight:bold; letter-spacing: 10px; font-size:35px; height:0px ">
+            <img style="margin-left:50px;" src="https://image.flaticon.com/icons/svg/540/540209.svg" width="40px" height="40px">            SCRAMBLE
         </div>
 
-        <div id="header_btn">
-            <div id="login_form" class="form-inline">
-                <div class="form-group">
-                    <input type="email" class="form-control" id="userId" placeholder="이메일을 입력해주세요">&nbsp;&nbsp;
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요">&nbsp;&nbsp;
-                </div>
-                <input type="submit" id="login_submit" class="btn btn-warning" style="width:90px;" value="로그인" /> &nbsp;&nbsp;
-                <button class="btn" style="width:90px;" onclick="popup_signup();">회원가입</button></br>
-            </div>
+        <div style="" id="header_btn">
+
         </div>
     </div>
+
     <div id="" style="-webkit-overflow-scrolling: touch;">
         <form action id="sidebar">
             <table border="0" class="text-center">
@@ -120,13 +137,23 @@
                     </td>
                 </tr>
             </table>
-            <hr style="size:9px" />
+                 <hr style="border: 0; height: 2px; background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0); background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0); background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0); background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0); "/>
             <div id="name_list">
             </div>
         </form>
-        <div id="content">
-            <!-- feed추가되는부분 -->
-            안녕하세요! 메인페이지입니다!!
+        <div id="content" style="">
+          <div id="login_form">
+            <h1 style="text-align:center;font-family: 'Pacifico', cursive;font-size:50px"></br></br> Welcome to SCRAMBLE</h1></br>
+            </br>
+            <table style="text-align:center;margin-left:50%;transform:translate(-50%);font-family: 'Noto Sans KR', sans-serif;">
+              <tr>
+                <td><input type="email" style="clear:both;width:100%;max-width:400px;height:50px;margin-left:50%;transform:translate(-50%)" class="form-control" id="userId" placeholder="Input your Email"></br>
+                  <input type="password" style=";clear:both;width:400px;height:50px;margin-left:50%;transform:translate(-50%)" class="form-control" id="password" placeholder="Input your Password"></td>
+                <td rowspan="2"><input type="submit" id="login_submit" class="btn btn-warning" style="width:80px; height:120px" value="Login" /></td>
+              </tr>
+              <tr>
+            </table>
+          </br><button type="button" style="font-size:17px; width:180px; height:50px; margin-left:50%; transform:translate(-50%);cursor:pointer" onclick="popup_signup();">Signup</button>
         </div>
     </div>
 
@@ -167,8 +194,8 @@
                                 url_name = res.urlData[i].name;
                                 url_address = res.urlData[i].address;
                                 console.log(url_name);
-                                $("#name_list").append('<ul id="' + i + '" onclick="read_feeds(' + url_id + ');">' + url_name + '</ul>');
-                                $("#name_list").append('<input type="button" id="delete_' + i + '" onclick="delete_name(' + url_id + ',' + i + ');" value="삭제">');
+                                $("#name_list").append('<li id="' + i + '" onclick="read_feeds(' + url_id + ');">' + url_name + '</li>');
+                                $("#name_list").append('<input type="button" class="x_btn" value="&#61453" id="delete_' + i + '" onclick="delete_name(' + url_id + ',' + i + ');" >');
                             }
                         }
                     }
@@ -216,8 +243,8 @@
                                 url_name = res.urls[i].name;
                                 url_address = res.urls[i].address;
                                 url_id = res.urls[i].Id;
-                                $("#name_list").append('<ul id="' + i + '" onclick="read_feeds(' + url_id + ');">' + url_name + '</ul>');
-                                $("#name_list").append('<input type="button" id="delete_' + i + '" onclick="delete_name(' + url_id + ',' + i + ');" value="삭제">');
+                                $("#name_list").append('<li id="' + i + '" onclick="read_feeds(' + url_id + ');">' + url_name + '</li>');
+                                $("#name_list").append('<input type="button" class="x_btn" value="&#61453" id="delete_' + i + '" onclick="delete_name(' + url_id + ',' + i + ');" >');
                             }
                             init_feeds(url_id, url_address);
                         }
@@ -268,12 +295,14 @@
                     headers: { 'x-access-token': token },
                     success: function (res) {
                         $("#content").empty();
+
                         var i = 0;
                         for (i = res.length - 1; i >= 0; i--) {
                             var title = res[i].title;
                             var content = res[i].content;
                             var url = res[i].link;
                             $("#content").append('<div id="feed_' + i + '" > <a style="font-weight:bold; font-size:22px;" href="' + url + '">' + title + '</a> <p>' + content + '</p> </div>');
+                            $("#content").append('<hr style="margin-left:-5px;margin-right:-5px;"></hr>');
                         }
                         // if (didScroll == true){
                         //     alert('스크롤 끝 지점입니다.');
@@ -313,6 +342,7 @@
                 alert('로그인해주세요.');
             }
             else {
+              if(confirm("정말 삭제하시겠습니까?")==true){
                 $.ajax({
                     url: '/urls/delete/' + url_id,
                     dataType: 'json',
@@ -327,6 +357,8 @@
                         alert("삭제할 수 없습니다.");
                     }
                 })
+              }
+              else return;
             }
         }
     </script>
