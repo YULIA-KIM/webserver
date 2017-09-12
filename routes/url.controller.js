@@ -34,13 +34,20 @@ exports.delete = function (req, res){
     if(!Id){
         return res.status(400).json({error: 'Incorrect Id'});
     }
-    model.Url.destroy({
-        where: {
-            Id: Id
+    model.Feed.destroy({
+        where : {
+            urlId: Id
         }
     }).then(function () {
-        res.status(204).json( { isOK : true } );
-    })
+            model.Url.destroy({
+               where: {
+                    Id: Id
+                }
+            }).then(function () {
+                res.status(204).json( { isOK : true } );
+            })
+        }
+    );
 };
 
 exports.update = function (req, res) {
