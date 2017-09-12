@@ -182,7 +182,7 @@ exports.read = function (req, res) {
               $lte: feedId-1
             }
         },
-        attributes: ['Id', 'title', 'content'],
+        attributes: ['Id', 'title', 'content', 'link'],
         order: [['Id', 'DESC']],
         limit: 10
       }).then(function (feeds) {
@@ -193,7 +193,7 @@ exports.read = function (req, res) {
         where: {
             urlId: urlId
         },
-        attributes: ['Id', 'title', 'content'],
+        attributes: ['Id', 'title', 'content', 'link'],
         order: [['Id', 'DESC']],
         limit: 10
       }).then(function (feeds) {
