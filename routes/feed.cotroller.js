@@ -86,7 +86,7 @@ exports.parse = function (){
             let arrDBResultsId = arrDBResults[i].Id;
             let newArticle = [];
 
-            if( feedState === 1 ){  
+            if( feedState === 1 ){
               model.Feed.destroy({ where: { urlId: arrDBResultsId } }).then(function() {
                 model.Url.update({ state: 0 },
                   { where: { Id : arrDBResultsId } }).then(function(result) {
@@ -182,7 +182,7 @@ exports.read = function (req, res) {
               $lte: feedId-1
             }
         },
-        attributes: ['Id', 'title', 'content', 'link'],
+        attributes: ['Id', 'title', 'content','link'],
         order: [['Id', 'DESC']],
         limit: 10
       }).then(function (feeds) {

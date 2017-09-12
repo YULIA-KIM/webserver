@@ -69,7 +69,7 @@ app.use('/urls', urls);
 app.use('/feeds', feeds);
 
 app.get('/signup', function(req, res) {
-    res.render('signup');
+    res.render('signUp');
 });
 
 app.get('/main', function(req, res) {
@@ -95,7 +95,7 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen(3000, function(){
-    models.sequelize.sync({force: true})
+    models.sequelize.sync({force: false})
         .then(function (){
             console.log('Database sync');
         });
