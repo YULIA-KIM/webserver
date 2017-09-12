@@ -217,11 +217,11 @@
                                     url_address = res.urlData[i].address;
                                     state = res.urlData[i].state;
                                     if (state == 1) {
-                                        $("#name_list").append('<li id="' + i + '" onclick="read_feeds(' + feed_id + ',' + url_id + ');">' + url_name + '</li>');
+                                        $("#name_list").append('<li id="' + i + '" onclick="read_feeds(' + feed_id + ',' + url_id + ',' + i + ');">' + url_name + '</li>');
                                         $("#name_list").append('<input type="button" class="x_btn" value="&#61453" id="delete_' + i + '" onclick="delete_name(' + url_id + ',' + i + ');" >');
                                     }
                                     else {
-                                        $("#name_list").append('<li id="' + i + '" onclick="read_feeds(' + feed_id + ',' + url_id + ');">' + url_name + "새로움" + '</li>');
+                                        $("#name_list").append('<li id="' + i + '" onclick="read_feeds(' + feed_id + ',' + url_id + ',' + i + ');">' + url_name + '<a style="font-size:7px; color:red;"> &nbsp;&nbsp;NEW </a> </li>');
                                         $("#name_list").append('<input type="button" class="x_btn" value="&#61453" id="delete_' + i + '" onclick="delete_name(' + url_id + ',' + i + ');" >');
                                     }
                                 }
@@ -300,12 +300,21 @@
                                 let url_address = '';
                                 let url_id = '';
                                 let feed_id = null;
+                                let state = '';
+                                let j;
                                 for (let i = 0; i < res.urls.length; i++) {
                                     url_name = res.urls[i].name;
                                     url_address = res.urls[i].address;
                                     url_id = res.urls[i].Id;
-                                    $("#name_list").append('<li id="' + i + '" onclick="read_feeds(' + feed_id + ',' + url_id + ');">' + url_name + '</li>');
-                                    $("#name_list").append('<input type="button" class="x_btn" value="&#61453" id="delete_' + i + '" onclick="delete_name(' + url_id + ',' + i + ');" >');
+                                    state = res.urls[i].state;
+                                    if (state == 1) {
+                                        $("#name_list").append('<li id="' + i + '" onclick="read_feeds(' + feed_id + ',' + url_id + ',' + i + ');">' + url_name + '</li>');
+                                        $("#name_list").append('<input type="button" class="x_btn" value="&#61453" id="delete_' + i + '" onclick="delete_name(' + url_id + ',' + i + ');" >');
+                                    }
+                                    else {
+                                        $("#name_list").append('<li id="' + i + '" onclick="read_feeds(' + feed_id + ',' + url_id + ',' + i + ');">' + url_name + '<a id="name_' + i + '" style="font-size:7px; color:red;"> &nbsp;&nbsp;NEW </a> </li>');
+                                        $("#name_list").append('<input type="button" class="x_btn" value="&#61453" id="delete_' + i + '" onclick="delete_name(' + url_id + ',' + i + ');" >');
+                                    }
                                 }
                                 init_feeds(url_id, url_address);
                             }
@@ -344,7 +353,7 @@
                 }
             }
 
-            var read_feeds = function (feed_id, url_id) {
+            var read_feeds = function (feed_id, url_id, j) {
                 $("#more").remove();
                 if (feed_id == null) {
                     $("#content").empty();
@@ -373,13 +382,13 @@
                                     $("#content").append('<div id="feed_' + i + '" > <a style="font-weight:bold; font-size:22px;" href="' + url + '" target="_blank">' + title + '</a> <p>' + content + '</p> </div>');
                                     $("#content").append('<hr style="margin-left:-5px;margin-right:-5px;"></hr>');
                                 }
-                                $("#content").append('<input type="button" id="more"  class="btn_content" onclick="read_feeds(' + feed_id + ',' + url_id + ');" value="더보기  &#61560"/>');
+                                $("#content").append('<input type="button" id="more"  class="btn_content" onclick="read_feeds(' + feed_id + ',' + url_id + ',' + j + ');" value="더보기  &#61560"/>');
                             } else if (res.length < 10) {
                                 $("#more").remove();
-                                $("#content").append('<input type="button" id="check"  class="btn_content"  onclick="read_check(' + url_id + ');" value="읽음  &#61713"/>');
+                                $("#content").append('<input type="button" id="check"  class="btn_content"  onclick="read_check(' + url_id + ',' + j + ');" value="읽음  &#61713"/>');
                             } else if (res == null) {
                                 $("#more").remove();
-                                $("#content").append('<input type="button" id="check" class="btn_content"  onclick="read_check(' + url_id + ');" value="읽음  &#61713"/>');
+                                $("#content").append('<input type="button" id="check" class="btn_content"  onclick="read_check(' + url_id + ',' + j + ');" value="읽음  &#61713"/>');
                             }
                         }
 
@@ -387,7 +396,7 @@
                 }
             }
 
-            var read_check = function (url_id) {
+            var read_check = function (url_id, j) {
                 if (token == '') {
                     alert('로그인해주세요.');
                 } else {
@@ -404,6 +413,7 @@
                         success: function (res) {
                             if (res['isOK'] == true) {
                                 $("#content").empty();
+                                $("#name_" + j).empty();
                             }
                         }
                     })
