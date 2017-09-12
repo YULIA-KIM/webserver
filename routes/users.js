@@ -18,7 +18,7 @@ router.post('/loginOk', function (req, res, next) {
         const token = jwt.sign({ userID: userId, password: password }, SECRET, { expiresIn: EXPIRES });
         console.log(token);
         model.User.findOne({ where: { userID: userId }, attributes: ['Id'] }).then(function (result) {
-          model.Url.findAll({ where: { userId: result.Id }, attributes: ['name', 'address', 'Id'] }).then(function (result) {
+          model.Url.findAll({ where: { userId: result.Id }, attributes: ['name', 'address', 'Id', 'state'] }).then(function (result) {
             res.json({ isOK: true, token: token, urlData: result });
           });
         })
