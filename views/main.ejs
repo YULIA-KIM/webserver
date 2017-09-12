@@ -373,7 +373,8 @@
                             'urlId': url_id
                         },
                         success: function (res) {
-                            if (res.length == 10) {
+                          console.log(res.length);
+                            if ( 0 < res.length && res.length <= 10) {
                                 feed_id = res[res.length - 1].Id;
                                 for (let i = 0; i < res.length; i++) {
                                     let title = res[i].title;
@@ -383,10 +384,14 @@
                                     $("#content").append('<hr style="margin-left:-5px;margin-right:-5px;"></hr>');
                                 }
                                 $("#content").append('<input type="button" id="more"  class="btn_content" onclick="read_feeds(' + feed_id + ',' + url_id + ',' + j + ');" value="더보기  &#61560"/>');
-                            } else if (res.length < 10) {
-                                $("#more").remove();
-                                $("#content").append('<input type="button" id="check"  class="btn_content"  onclick="read_check(' + url_id + ',' + j + ');" value="읽음  &#61713"/>');
-                            } else if (res == null) {
+                                if (res.length < 10) {
+                                    $("#more").remove();
+                                    $("#content").append('<input type="button" id="check"  class="btn_content"  onclick="read_check(' + url_id + ',' + j + ');" value="읽음  &#61713"/>');
+                                }
+                            // } else if (res.length < 10) {
+                            //     $("#more").remove();
+                            //     $("#content").append('<input type="button" id="check"  class="btn_content"  onclick="read_check(' + url_id + ',' + j + ');" value="읽음  &#61713"/>');
+                          } else if (res.length==0) {
                                 $("#more").remove();
                                 $("#content").append('<input type="button" id="check" class="btn_content"  onclick="read_check(' + url_id + ',' + j + ');" value="읽음  &#61713"/>');
                             }
